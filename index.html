@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Práctica preparcial · 2.º parcial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=Fira+Code:wght@400;500&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0f2244; --blue:#1d6fcc; --blue2:#2d82e6; --teal:#0ea5e9; --sky:#38bdf8;
+  --bg:#eef6ff; --bg2:#f8fbff; --white:#fff;
+  --g50:#f8fafc; --g100:#f1f5f9; --g200:#e2e8f0; --g300:#cbd5e1;
+  --g500:#64748b; --g600:#475569; --g700:#334155; --g800:#1e293b;
+  --ok:#059669; --ok-bg:#d1fae5; --warn:#d97706; --warn-bg:#fef3c7; --bad:#b91c1c; --bad-bg:#fee2e2;
+  --lab-terra:#b57d4c; --lab-blue:#415a8e; --lab-dark:#20201c; --lab-cream:#faf8f1; --lab-gray:#6579a1;
+  --r:12px; --rl:16px; --rxl:24px;
+  --sh:0 4px 6px -1px rgba(0,0,0,.08),0 2px 4px -1px rgba(0,0,0,.05);
+  --f-body:'Outfit',sans-serif; --f-disp:'Fraunces',Georgia,serif; --f-mono:'Fira Code',monospace;
+  --muted:#64748b;
+}
+:root{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--f-body);background:var(--bg);color:var(--g800);min-height:100vh;font-size:14px;line-height:1.65}
+button{font-family:inherit;cursor:pointer}
+a{color:var(--blue)}
+
+/* ===== chrome (laboratoriobest-chrome) ===== */
+.topbar{background:linear-gradient(135deg,var(--navy) 0%,#1a3a6e 100%);color:#e0f2fe;padding:14px 0;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.topbar-inner{max-width:1080px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-inspt{font-size:12px;color:#7dd3fc;letter-spacing:.1em;font-weight:700}
+.brand-title{font-family:'Fraunces',serif;font-size:18px;color:#fff;font-weight:700}
+.brand-sub{font-size:12px;color:#bfdbfe}
+.lab-logo{background:var(--lab-cream);padding:8px 18px 7px;border-radius:12px;text-align:left;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.lab-name{display:flex;align-items:center;font-family:'Fraunces',Georgia,serif;font-size:16px;font-weight:700;letter-spacing:-0.01em;line-height:1.2}
+.lab-name .bullet{width:8px;height:8px;border-radius:50%;background:var(--lab-terra);flex-shrink:0;margin-right:7px}
+.lab-name .lab{color:var(--lab-dark)}
+.lab-name .best{color:var(--lab-terra)}
+.lab-name .ia{color:var(--lab-blue)}
+.lab-sub{color:var(--lab-gray);font-size:11px;font-weight:500;margin-top:1px;padding-left:15px;font-family:'Outfit',sans-serif}
+.ej-lab{font-family:'Fraunces',Georgia,serif;font-size:12.5px;font-weight:700;display:flex;align-items:center;margin-left:auto}
+.ej-lab .bullet{width:6px;height:6px;border-radius:50%;background:var(--lab-terra);margin-right:5px}
+.ej-lab .lab{color:var(--lab-dark);opacity:.75}
+.ej-lab .best{color:var(--lab-terra)}
+.ej-lab .ia{color:var(--lab-blue)}
+.site-footer{background:var(--navy);color:#cbd5e1;padding:30px 0 24px;margin-top:40px}
+.footer-inner{max-width:1080px;margin:0 auto;padding:0 20px;text-align:center}
+.footer-quote{font-family:'Fraunces',serif;font-style:italic;font-size:1.1rem;color:#e0f2fe;margin-bottom:16px}
+.footer-lab{display:inline-block;background:var(--lab-cream);padding:10px 22px 9px;border-radius:12px;text-align:left;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.footer-lab .lab-name{font-size:17px}
+.footer-lab .lab-sub{font-size:12px;padding-left:15px}
+@media (max-width:640px){.topbar-inner{justify-content:center;text-align:center}}
+
+/* ===== layout ===== */
+.wrap{max-width:768px;margin:0 auto;padding:0 16px}
+.badge{display:inline-block;font-family:var(--f-mono);font-size:.7rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);background:#dbeafe;border-radius:999px;padding:3px 10px}
+h2{font-family:var(--f-disp);font-weight:400;font-size:2.25rem;line-height:1.15;color:var(--navy);margin:.35em 0 .3em}
+@media (min-width:640px){h2{font-size:3rem}}
+h3{font-family:var(--f-disp);font-weight:400;font-size:1.25rem;color:var(--navy)}
+
+/* grupo */
+.grupo{background:var(--white);border:1px solid var(--g200);border-radius:var(--rl);box-shadow:var(--sh);padding:20px;margin:24px 0 18px}
+.grupo h3{margin-bottom:10px}
+.roles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px}
+@media (min-width:640px){.roles{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.rol{background:var(--bg2);border:1px solid var(--g200);border-radius:var(--r);padding:10px 12px}
+.rol b{display:block;color:var(--navy);font-weight:600;font-size:13px}
+.rol span{font-size:12px;color:var(--g600);line-height:1.5;display:block}
+.grupo-id{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#e0ecff;border-radius:var(--r);padding:10px 14px;margin-bottom:14px}
+.grupo-id label{font-weight:600;color:var(--navy)}
+.grupo-id span{font-size:12px;color:var(--g600)}
+.grupo-foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.grupo-foot p{font-size:12px;color:var(--g600);flex:1 1 260px}
+.btn-link{display:inline-flex;align-items:center;gap:6px;background:var(--ok);color:#fff;text-decoration:none;font-weight:600;font-size:13px;border-radius:999px;padding:9px 18px}
+.btn-link:hover{background:#047857}
+
+/* tabs */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(238,246,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--g200)}
+.tabs-inner{max-width:768px;margin:0 auto;padding:8px 16px;display:flex;gap:6px;overflow-x:auto;overflow-y:hidden !important}
+.tab{flex:1 0 auto;border:1px solid var(--g200);background:var(--white);border-radius:var(--r);padding:6px 12px;text-align:left;display:flex;flex-direction:column;line-height:1.3;color:var(--g700)}
+.tab-n{font-family:var(--f-mono);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:var(--g500)}
+.tab-name{font-weight:600;font-size:13px}
+.tab.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.tab.active .tab-n{color:#7dd3fc}
+
+/* tanda */
+.tanda{display:none;padding-top:22px;scroll-margin-top:0}
+.tanda.active{display:block}
+.tanda-head{display:flex;gap:18px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;margin-bottom:18px}
+.tanda-head>div:first-child{flex:1 1 380px}
+.tanda-intro{color:var(--g700);font-size:14px}
+.timer{background:var(--navy);color:#e0f2fe;border-radius:var(--rl);padding:12px 16px;min-width:180px;text-align:center}
+.timer-lbl{font-family:var(--f-mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:#7dd3fc}
+.timer-val{font-family:var(--f-mono);font-size:2rem;font-weight:500;color:#fff;line-height:1.3}
+.timer.alert .timer-val{color:#fca5a5}
+.timer-btns{display:flex;gap:6px;justify-content:center;margin-top:4px}
+.btn-sm{border:0;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:600;background:var(--sky);color:var(--navy)}
+.btn-sm.ghost{background:transparent;color:#bfdbfe;border:1px solid rgba(191,219,254,.4)}
+
+/* ejercicio */
+.ej{background:var(--white);border:1px solid var(--g200);border-radius:var(--rl);box-shadow:var(--sh);padding:18px 20px;margin-bottom:16px;scroll-margin-top:70px}
+.ej.done{border-color:#6ee7b7}
+.ej-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.ej-tit{font-family:var(--f-disp);font-weight:700;font-size:1.25rem;color:var(--navy)}
+.ej-sub{font-size:13px;color:var(--g600);font-weight:500}
+.ej.done .ej-tit::after{content:" ✓";color:var(--ok)}
+.enun p{margin-bottom:6px}
+.hints-box{margin:10px 0 4px}
+.hints{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:6px}
+.hint{background:var(--warn-bg);border-left:3px solid var(--warn);border-radius:8px;padding:8px 12px;font-size:13.5px;color:#78350f}
+.hint-n{font-family:var(--f-mono);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:var(--warn);margin-right:6px}
+.btn-ghost{background:transparent;border:1px dashed var(--warn);color:#92400e;font-size:12.5px;font-weight:600;border-radius:999px;padding:5px 14px}
+.btn-ghost:disabled{opacity:.45;cursor:default}
+
+.check{margin-top:12px;border-top:1px solid var(--g200);padding-top:12px}
+.gate{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--g700);font-weight:500;cursor:pointer}
+.gate input{width:16px;height:16px;accent-color:var(--blue)}
+.check-body{margin-top:10px;transition:opacity .2s}
+.check-body.locked{opacity:.4;pointer-events:none;user-select:none}
+.cq{font-weight:600;color:var(--navy);margin-bottom:8px;font-size:13.5px}
+.cq2{font-size:13px;font-weight:600;color:var(--navy);width:100%}
+.chips,.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choices{flex-direction:column}
+.choices.inline{flex-direction:row;margin-top:10px;align-items:center}
+.chip,.choice,.line{display:flex;align-items:center;gap:10px;border:1px solid var(--g200);border-radius:var(--r);padding:7px 12px;background:var(--bg2);cursor:pointer}
+.chip:hover,.choice:hover,.line:hover{border-color:var(--blue2)}
+.chip input,.choice input,.line input{accent-color:var(--blue);flex-shrink:0}
+.choice>span,.line>span{min-width:0}
+.lines{display:flex;flex-direction:column;gap:6px}
+.line .calc{margin:0;padding:0;background:transparent;text-align:left}
+.sels{display:flex;flex-direction:column;gap:8px}
+.sel{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.sel>span{min-width:90px}
+select,.numf input{font-family:var(--f-body);font-size:14px;border:1px solid var(--g300);border-radius:8px;padding:6px 10px;background:#fff;color:var(--g800)}
+.nums{display:flex;flex-wrap:wrap;gap:14px;margin-top:4px}
+.numf{display:flex;align-items:center;gap:8px;font-size:13.5px}
+.numf input{width:110px}
+.check-actions{display:flex;align-items:center;gap:12px;margin-top:12px}
+.btn{border:0;border-radius:999px;background:var(--blue);color:#fff;font-weight:600;font-size:13px;padding:8px 20px}
+.btn:hover{background:var(--blue2)}
+.btn:disabled{background:var(--g300);cursor:default}
+.tries{font-size:12px;color:var(--g500)}
+.fb{margin-top:10px;font-size:13.5px;border-radius:10px}
+.fb:empty{display:none}
+.fb.ok{background:var(--ok-bg);color:#065f46;padding:10px 12px;border-left:3px solid var(--ok)}
+.fb.no{background:var(--bad-bg);color:#7f1d1d;padding:10px 12px;border-left:3px solid var(--bad)}
+.fb.stop{background:var(--warn-bg);color:#78350f;padding:10px 12px;border-left:3px solid var(--warn)}
+.fb.no .mi,.fb.ok .mi{background:rgba(255,255,255,.55)}
+
+.puesta{background:#e0ecff;border:1px solid #bfd6fb;border-radius:var(--rl);padding:16px 20px;margin:20px 0 6px}
+.puesta h3{font-size:1.1rem;margin-bottom:6px}
+.puesta ul{padding-left:20px;color:var(--g700)}
+
+/* ===== matemática (matematica-html) ===== */
+.mi,.calc{font-family:'STIX Two Text','STIXGeneral','Times New Roman',serif;font-style:normal}
+.mi i,.calc i{font-style:italic}
+.ro{font-style:normal}
+.tx{font-family:var(--f-body);font-size:.8em;color:var(--muted);font-style:normal}
+.mi{font-size:1.1em;background:#eaf2ff;border-radius:4px;padding:0 .2em;line-height:1.5}
+.hint .mi{background:rgba(255,255,255,.6)}
+.choice .mi,.chip .mi,.sel .mi,.numf .mi{background:transparent;padding:0}
+.calc{font-size:1.18em;text-align:center;padding:10px 6px;margin:6px 0;overflow-x:auto;overflow-y:hidden !important;line-height:1.9}
+.int{font-size:1.35em;vertical-align:-.12em;margin-right:.08em}
+.fr{display:inline-flex;flex-direction:column;text-align:center;margin:0 .14em;vertical-align:middle;line-height:1.15}
+.fr .fn{padding:0 .5em .12em}
+.fr .fd{padding:.14em .5em 0;border-top:1.3px solid currentColor}
+sub,sup{font-size:.72em;line-height:0;vertical-align:baseline;position:relative}
+sub{top:.34em} sup{top:-.48em}
+.fr .fn sup,.fr .fd sup{top:-.42em}
+.fr .fn sub,.fr .fd sub{top:.3em}
+sup .fr{font-size:.85em;vertical-align:.1em}
+sup .fr .fn,sup .fr .fd{padding:0 .28em}
+.at{display:inline-block;white-space:nowrap}
+.sq{display:inline-flex;align-items:stretch;vertical-align:middle;margin:0 .08em}
+.sq>svg{width:.6em;min-width:8px;align-self:stretch;height:auto;overflow:visible;flex-shrink:0}
+.sq-b{display:inline-flex;align-items:center;border-top:1.3px solid currentColor;padding:.1em .28em .06em .1em}
+.sis{display:inline-flex;align-items:stretch;vertical-align:middle;margin:.15em .2em}
+.llave-w{position:relative;flex-shrink:0;align-self:stretch;width:.62em;min-width:8px;margin-right:.3em}
+.llave-w>svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.sis-l{display:inline-flex;flex-direction:column;justify-content:center;gap:.25em;padding:.2em 0;text-align:left}
+.sis-r{display:block;white-space:nowrap}
+.os{margin:0 .26em} .ob{margin:0 .15em} .ou{margin-right:.02em}
+.pc{margin-right:.22em} .psc{margin:0 .16em} .gap{display:inline-block;width:1.4em}
+.mi .os{margin:0 .2em} .mi .ob{margin:0 .12em}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div>
+        <div class="brand-inspt">I·N·S·P·T &nbsp;·&nbsp; UTN</div>
+        <div class="brand-title">Práctica preparcial · 2.º parcial</div>
+        <div class="brand-sub">Análisis Matemático I</div>
+      </div>
+    </div>
+    <div class="lab-logo">
+      <div class="lab-name"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div>
+      <div class="lab-sub">Prof. Ariel L. Cardozo Delgado</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="grupo">
+      <span class="badge">Trabajo en grupo</span>
+      <h3 style="margin-top:8px">Antes de arrancar, repártanse los roles</h3>
+      <div class="roles">
+        <div class="rol"><b>Escribe</b><span>Comparte pantalla y escribe el desarrollo que dicta el grupo.</span></div>
+        <div class="rol"><b>Verifica</b><span>Controla cada resultado: reemplaza, deriva, revisa signos.</span></div>
+        <div class="rol"><b>Tiempo</b><span>Maneja el cronómetro y avisa cuando quedan 5 minutos.</span></div>
+        <div class="rol"><b>Vocero</b><span>Cuenta lo que hizo el grupo en la sala principal.</span></div>
+      </div>
+      <div class="grupo-id">
+        <label for="grupo-sel">Somos el grupo</label>
+        <select id="grupo-sel"><option value="">Elegir…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select>
+        <span>El número que les asignó el profe en Zoom.</span>
+      </div>
+      <div class="grupo-foot">
+        <p>Si son tres, el que verifica también lleva el tiempo. Cada ejercicio se verifica recién cuando el desarrollo está escrito; si se traban, pidan una pista. Si se quedan sin intentos, el profe recibe el aviso.</p>
+      </div>
+    </section>
+  </div>
+
+  <nav class="tabs" id="tabs"><div class="tabs-inner"><button type="button" class="tab active" data-tab="t1"><span class="tab-n">Tanda 1</span><span class="tab-name">Continuidad</span></button><button type="button" class="tab" data-tab="t2"><span class="tab-n">Tanda 2</span><span class="tab-name">L'Hôpital y recta tangente</span></button><button type="button" class="tab" data-tab="t3"><span class="tab-n">Tanda 3</span><span class="tab-name">Estudio de función</span></button><button type="button" class="tab" data-tab="t4"><span class="tab-n">Tanda 4</span><span class="tab-name">Integrales</span></button></div></nav>
+
+  <div class="wrap">
+<section class="tanda active" id="t1" data-tanda="t1">
+  <div class="tanda-head">
+    <div>
+      <span class="badge">Tanda 1 · 20 min</span>
+      <h2>Continuidad</h2>
+      <p class="tanda-intro">Resuelvan E1 y E2 en el orden en que aparecen. El gráfico de E2 se hace a mano: lo van a mostrar en la puesta en común.</p>
+    </div>
+    <div class="timer" data-timer="t1" data-min="20">
+      <div class="timer-lbl">Tiempo de la tanda</div>
+      <div class="timer-val" data-tv="t1">20:00</div>
+      <div class="timer-btns">
+        <button type="button" class="btn-sm" data-tgo="t1">Iniciar</button>
+        <button type="button" class="btn-sm ghost" data-treset="t1">Reiniciar</button>
+      </div>
+    </div>
+  </div>
+  <article class="ej" id="ej-e1">
+  <header class="ej-head"><h3 class="ej-tit">E1</h3><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><p>¿En qué puntos es discontinua la función <span class="mi"><i>f</i></span>? Justificar.</p><div class="calc"><i>f</i><wbr><span class="os">:</span><span class="ro">ℝ</span><wbr><span class="os">→</span><span class="ro">ℝ</span><span class="gap"></span>/<span class="gap"></span><i>f</i>(<i>x</i>)<wbr><span class="os">=</span><span class="sis"><span class="llave-w"><svg viewBox="0 0 10 100" preserveAspectRatio="none" aria-hidden="true"><path d="M9.2 1.2 C4.6 1.6 5 6 5 14 L5 40 C5 46 4 49.4 1 50 C4 50.6 5 54 5 60 L5 86 C5 94 4.6 98.4 9.2 98.8" fill="none" stroke="currentColor" stroke-width="1.3" vector-effect="non-scaling-stroke"/></svg></span><span class="sis-l"><span class="sis-r"><i>x</i><span class="gap"></span><span class="tx">si</span><span class="gap"></span><i>x</i><wbr><span class="os">&lt;</span><span class="ou">−</span>1</span><span class="sis-r"><span class="at"><i>x</i><sup>2</sup></span><span class="gap"></span><span class="tx">si</span><span class="gap"></span><span class="ou">−</span>1<wbr><span class="os">≤</span><i>x</i><wbr><span class="os">≤</span>1</span><span class="sis-r"><span class="fr"><span class="fn">1</span><span class="fd"><i>x</i></span></span><span class="gap"></span><span class="tx">si</span><span class="gap"></span><i>x</i><wbr><span class="os">&gt;</span>1</span></span></span></div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e1-0" hidden><span class="hint-n">Pista 1</span> Dentro de cada tramo, ¿la fórmula que se usa tiene algún problema? Fíjense especialmente en qué intervalo se usa <span class="mi"><span class="fr"><span class="fn">1</span><span class="fd"><i>x</i></span></span></span>.</li><li class="hint" data-hint="e1-1" hidden><span class="hint-n">Pista 2</span> Los puntos para analizar con cuidado son los de cambio de fórmula: <span class="mi"><i>x</i><wbr><span class="os">=</span><span class="ou">−</span>1</span> y <span class="mi"><i>x</i><wbr><span class="os">=</span>1</span>. En cada uno calculen los dos límites laterales, cada uno con la fórmula de su lado.</li><li class="hint" data-hint="e1-2" hidden><span class="hint-n">Pista 3</span> Para que <span class="mi"><i>f</i></span> sea continua en <span class="mi"><i>a</i></span> tienen que cumplirse tres cosas: existe <span class="mi"><i>f</i>(<i>a</i>)</span>, existe el límite y los dos valores coinciden.</li></ol>
+    <button type="button" class="btn-ghost" data-more="e1" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e1">
+<label class="gate"><input type="checkbox" data-gate="e1"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e1">
+<p class="cq">Marquen todos los puntos donde <em>f</em> es discontinua.</p>
+<div class="chips">
+<label class="chip"><input type="checkbox" name="e1" value="m1"><span><span class="mi"><i>x</i><wbr><span class="os">=</span><span class="ou">−</span>1</span></span></label>
+<label class="chip"><input type="checkbox" name="e1" value="z"><span><span class="mi"><i>x</i><wbr><span class="os">=</span>0</span></span></label>
+<label class="chip"><input type="checkbox" name="e1" value="p1"><span><span class="mi"><i>x</i><wbr><span class="os">=</span>1</span></span></label>
+<label class="chip"><input type="checkbox" name="e1" value="no"><span>En ningún punto</span></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e1">Verificar</button><span class="tries" data-tries="e1"></span></div>
+<div class="fb" data-fb="e1" aria-live="polite"></div>
+</div></div>
+</article>
+<article class="ej" id="ej-e2">
+  <header class="ej-head"><h3 class="ej-tit">E2</h3><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><p>Analicen la continuidad de la función en los puntos indicados. Clasifiquen las discontinuidades y grafiquen la función.</p><div class="calc"><i>f</i>(<i>x</i>)<wbr><span class="os">=</span><span class="sis"><span class="llave-w"><svg viewBox="0 0 10 100" preserveAspectRatio="none" aria-hidden="true"><path d="M9.2 1.2 C4.6 1.6 5 6 5 14 L5 40 C5 46 4 49.4 1 50 C4 50.6 5 54 5 60 L5 86 C5 94 4.6 98.4 9.2 98.8" fill="none" stroke="currentColor" stroke-width="1.3" vector-effect="non-scaling-stroke"/></svg></span><span class="sis-l"><span class="sis-r"><span class="ou">−</span><i>x</i><wbr><span class="ob">+</span>1<span class="gap"></span><span class="tx">si</span><span class="gap"></span><span class="ou">−</span>2<wbr><span class="os">&lt;</span><i>x</i><wbr><span class="os">≤</span>0</span><span class="sis-r"><span class="at"><i>x</i><sup>2</sup></span><span class="gap"></span><span class="tx">si</span><span class="gap"></span><i>x</i><wbr><span class="os">&gt;</span>0</span></span></span><span class="gap"></span><span class="tx">en</span><span class="gap"></span><span class="at"><i>x</i><sub>1</sub></span><wbr><span class="os">=</span><span class="ou">−</span>1<span class="pc">,</span><span class="gap"></span><span class="at"><i>x</i><sub>2</sub></span><wbr><span class="os">=</span>0<span class="pc">,</span><span class="gap"></span><span class="at"><i>x</i><sub>3</sub></span><wbr><span class="os">=</span>1</div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e2-0" hidden><span class="hint-n">Pista 1</span> <span class="mi"><i>x</i><wbr><span class="os">=</span><span class="ou">−</span>1</span> y <span class="mi"><i>x</i><wbr><span class="os">=</span>1</span> no son puntos de cambio de fórmula. ¿Qué tramo se usa en cada uno, y qué tipo de función es ese tramo?</li><li class="hint" data-hint="e2-1" hidden><span class="hint-n">Pista 2</span> En <span class="mi"><i>x</i><wbr><span class="os">=</span>0</span> calculen los laterales: por izquierda con <span class="mi"><span class="ou">−</span><i>x</i><wbr><span class="ob">+</span>1</span>, por derecha con <span class="mi"><span class="at"><i>x</i><sup>2</sup></span></span>. Comparen con <span class="mi"><i>f</i>(0)</span>, que sale del tramo que incluye al <span class="mi">0</span>.</li><li class="hint" data-hint="e2-2" hidden><span class="hint-n">Pista 3</span> Si los dos laterales son distintos, ¿existe el límite? ¿Se podría "arreglar" la función cambiando sólo el valor en ese punto?</li></ol>
+    <button type="button" class="btn-ghost" data-more="e2" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e2">
+<label class="gate"><input type="checkbox" data-gate="e2"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e2">
+<p class="cq">Clasifiquen cada punto.</p>
+<div class="sels">
+<label class="sel"><span><span class="mi"><span class="at"><i>x</i><sub>1</sub></span><wbr><span class="os">=</span><span class="ou">−</span>1</span></span><select data-sel="e2-0"><option value="">Elegir…</option><option value="c">Continua</option><option value="ev">Discontinuidad evitable</option><option value="ne">Discontinuidad no evitable</option></select></label>
+<label class="sel"><span><span class="mi"><span class="at"><i>x</i><sub>2</sub></span><wbr><span class="os">=</span>0</span></span><select data-sel="e2-1"><option value="">Elegir…</option><option value="c">Continua</option><option value="ev">Discontinuidad evitable</option><option value="ne">Discontinuidad no evitable</option></select></label>
+<label class="sel"><span><span class="mi"><span class="at"><i>x</i><sub>3</sub></span><wbr><span class="os">=</span>1</span></span><select data-sel="e2-2"><option value="">Elegir…</option><option value="c">Continua</option><option value="ev">Discontinuidad evitable</option><option value="ne">Discontinuidad no evitable</option></select></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e2">Verificar</button><span class="tries" data-tries="e2"></span></div>
+<div class="fb" data-fb="e2" aria-live="polite"></div>
+</div></div>
+</article>
+  <div class="puesta">
+    <h3>Al volver a la sala principal</h3>
+    <ul><li>El vocero del grupo que elija el docente explica E1: en qué punto es discontinua y cómo lo justificaron.</li><li>Otro grupo muestra el gráfico de E2. El resto compara con el suyo.</li></ul>
+  </div>
+</section>
+<section class="tanda" id="t2" data-tanda="t2">
+  <div class="tanda-head">
+    <div>
+      <span class="badge">Tanda 2 · 20 min</span>
+      <h2>L'Hôpital y recta tangente</h2>
+      <p class="tanda-intro">Primero los tres límites de E3; después las dos rectas tangentes de E5.</p>
+    </div>
+    <div class="timer" data-timer="t2" data-min="20">
+      <div class="timer-lbl">Tiempo de la tanda</div>
+      <div class="timer-val" data-tv="t2">20:00</div>
+      <div class="timer-btns">
+        <button type="button" class="btn-sm" data-tgo="t2">Iniciar</button>
+        <button type="button" class="btn-sm ghost" data-treset="t2">Reiniciar</button>
+      </div>
+    </div>
+  </div>
+  <article class="ej" id="ej-e3a">
+  <header class="ej-head"><h3 class="ej-tit">E3 a)</h3><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><p>Calculen el límite, si es posible mediante la regla de L'Hôpital.</p><div class="calc"><span class="at"><span class="ro">lím</span><sub><i>x</i><wbr><span class="os">→</span>1</sub></span> <span class="fr"><span class="fn"><span class="at"><i>x</i><sup>3</sup></span><wbr><span class="ob">−</span>2<span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">−</span><i>x</i><wbr><span class="ob">+</span>2</span><span class="fd"><span class="at"><i>x</i><sup>3</sup></span><wbr><span class="ob">−</span>7<i>x</i><wbr><span class="ob">+</span>6</span></span></div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e3a-0" hidden><span class="hint-n">Pista 1</span> Reemplacen <span class="mi"><i>x</i><wbr><span class="os">=</span>1</span> en el numerador y en el denominador. ¿Qué forma toma el límite?</li><li class="hint" data-hint="e3a-1" hidden><span class="hint-n">Pista 2</span> Si queda <span class="mi"><span class="fr"><span class="fn">0</span><span class="fd">0</span></span></span>, deriven el numerador y el denominador <strong>por separado</strong>. No es la derivada del cociente.</li><li class="hint" data-hint="e3a-2" hidden><span class="hint-n">Pista 3</span> Después de derivar, vuelvan a reemplazar <span class="mi"><i>x</i><wbr><span class="os">=</span>1</span>. Si otra vez da <span class="mi"><span class="fr"><span class="fn">0</span><span class="fd">0</span></span></span>, se repite.</li></ol>
+    <button type="button" class="btn-ghost" data-more="e3a" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e3a">
+<label class="gate"><input type="checkbox" data-gate="e3a"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e3a">
+<p class="cq">Escriban el valor del límite. Si es una fracción, escríbanla con la barra inclinada.</p>
+<div class="nums">
+<label class="numf">Límite = <input type="text" inputmode="decimal" data-num="e3a-0" autocomplete="off"></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e3a">Verificar</button><span class="tries" data-tries="e3a"></span></div>
+<div class="fb" data-fb="e3a" aria-live="polite"></div>
+</div></div>
+</article>
+<article class="ej" id="ej-e3b">
+  <header class="ej-head"><h3 class="ej-tit">E3 b)</h3><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><div class="calc"><span class="at"><span class="ro">lím</span><sub><i>x</i><wbr><span class="os">→</span>1</sub></span> <span class="fr"><span class="fn"><span class="ro">ln</span>(<i>x</i>)</span><span class="fd"><i>x</i><wbr><span class="ob">−</span>1</span></span></div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e3b-0" hidden><span class="hint-n">Pista 1</span> ¿Cuánto vale <span class="mi"><span class="ro">ln</span>(1)</span>? ¿Qué forma toma el límite?</li><li class="hint" data-hint="e3b-1" hidden><span class="hint-n">Pista 2</span> Derivada de <span class="mi"><span class="ro">ln</span>(<i>x</i>)</span>: la necesitan para el numerador.</li><li class="hint" data-hint="e3b-2" hidden><span class="hint-n">Pista 3</span> Después de derivar, simplifiquen antes de reemplazar <span class="mi"><i>x</i><wbr><span class="os">=</span>1</span>.</li></ol>
+    <button type="button" class="btn-ghost" data-more="e3b" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e3b">
+<label class="gate"><input type="checkbox" data-gate="e3b"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e3b">
+<p class="cq">Escriban el valor del límite.</p>
+<div class="nums">
+<label class="numf">Límite = <input type="text" inputmode="decimal" data-num="e3b-0" autocomplete="off"></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e3b">Verificar</button><span class="tries" data-tries="e3b"></span></div>
+<div class="fb" data-fb="e3b" aria-live="polite"></div>
+</div></div>
+</article>
+<article class="ej" id="ej-e3c">
+  <header class="ej-head"><h3 class="ej-tit">E3 c)</h3><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><div class="calc"><span class="at"><span class="ro">lím</span><sub><i>x</i><wbr><span class="os">→</span><span class="ou">−</span>∞</sub></span> <i>x</i> <span class="at"><span class="ro">e</span><sup><i>x</i></sup></span></div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e3c-0" hidden><span class="hint-n">Pista 1</span> Cuando <span class="mi"><i>x</i><wbr><span class="os">→</span><span class="ou">−</span>∞</span>, ¿a qué tiende cada factor? ¿Qué forma indeterminada es?</li><li class="hint" data-hint="e3c-1" hidden><span class="hint-n">Pista 2</span> La regla de L'Hôpital sólo se aplica a <span class="mi"><span class="fr"><span class="fn">0</span><span class="fd">0</span></span></span> o <span class="mi"><span class="fr"><span class="fn">∞</span><span class="fd">∞</span></span></span>. Reescriban el producto como cociente: <span class="mi"><i>x</i> <span class="at"><span class="ro">e</span><sup><i>x</i></sup></span><wbr><span class="os">=</span><span class="fr"><span class="fn"><i>x</i></span><span class="fd"><span class="at"><span class="ro">e</span><sup><span class="ou">−</span><i>x</i></sup></span></span></span></span>.</li><li class="hint" data-hint="e3c-2" hidden><span class="hint-n">Pista 3</span> Deriven numerador y denominador. ¿A qué tiende <span class="mi"><span class="at"><span class="ro">e</span><sup><span class="ou">−</span><i>x</i></sup></span></span> cuando <span class="mi"><i>x</i><wbr><span class="os">→</span><span class="ou">−</span>∞</span>?</li></ol>
+    <button type="button" class="btn-ghost" data-more="e3c" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e3c">
+<label class="gate"><input type="checkbox" data-gate="e3c"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e3c">
+<p class="cq">Escriban el valor del límite.</p>
+<div class="nums">
+<label class="numf">Límite = <input type="text" inputmode="decimal" data-num="e3c-0" autocomplete="off"></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e3c">Verificar</button><span class="tries" data-tries="e3c"></span></div>
+<div class="fb" data-fb="e3c" aria-live="polite"></div>
+</div></div>
+</article>
+<article class="ej" id="ej-e5a">
+  <header class="ej-head"><h3 class="ej-tit">E5 a)</h3><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><p>Hallen la ecuación de la recta tangente a la curva en el punto indicado.</p><div class="calc"><i>f</i>(<i>x</i>)<wbr><span class="os">=</span><span class="ou">−</span><span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">+</span>4<i>x</i><wbr><span class="ob">−</span>3<span class="gap"></span><span class="tx">en</span><span class="gap"></span><span class="at"><i>x</i><sub>0</sub></span><wbr><span class="os">=</span>0</div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e5a-0" hidden><span class="hint-n">Pista 1</span> Necesitan un punto y una pendiente. El punto es <span class="mi">(<span class="at"><i>x</i><sub>0</sub></span><span class="psc">;</span><i>f</i>(<span class="at"><i>x</i><sub>0</sub></span>))</span>.</li><li class="hint" data-hint="e5a-1" hidden><span class="hint-n">Pista 2</span> La pendiente es <span class="mi"><span class="at"><i>f</i>′</span>(<span class="at"><i>x</i><sub>0</sub></span>)</span>: primero deriven, después reemplacen.</li><li class="hint" data-hint="e5a-2" hidden><span class="hint-n">Pista 3</span> Usen <span class="mi"><i>y</i><wbr><span class="ob">−</span><i>f</i>(<span class="at"><i>x</i><sub>0</sub></span>)<wbr><span class="os">=</span><span class="at"><i>f</i>′</span>(<span class="at"><i>x</i><sub>0</sub></span>) (<i>x</i><wbr><span class="ob">−</span><span class="at"><i>x</i><sub>0</sub></span>)</span> y despejen <span class="mi"><i>y</i></span>.</li></ol>
+    <button type="button" class="btn-ghost" data-more="e5a" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e5a">
+<label class="gate"><input type="checkbox" data-gate="e5a"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e5a">
+<p class="cq">Escriban la recta como <span class="mi"><i>y</i><wbr><span class="os">=</span><i>m</i><i>x</i><wbr><span class="ob">+</span><i>b</i></span>.</p>
+<div class="nums">
+<label class="numf"><span class="mi"><i>m</i></span> = <input type="text" inputmode="decimal" data-num="e5a-0" autocomplete="off"></label>
+<label class="numf"><span class="mi"><i>b</i></span> = <input type="text" inputmode="decimal" data-num="e5a-1" autocomplete="off"></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e5a">Verificar</button><span class="tries" data-tries="e5a"></span></div>
+<div class="fb" data-fb="e5a" aria-live="polite"></div>
+</div></div>
+</article>
+<article class="ej" id="ej-e5b">
+  <header class="ej-head"><h3 class="ej-tit">E5 b)</h3><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><div class="calc"><i>f</i>(<i>x</i>)<wbr><span class="os">=</span>3<span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">+</span><span class="fr"><span class="fn">1</span><span class="fd"><i>x</i></span></span><span class="gap"></span><span class="tx">en</span><span class="gap"></span><span class="at"><i>x</i><sub>0</sub></span><wbr><span class="os">=</span><span class="ou">−</span>1</div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e5b-0" hidden><span class="hint-n">Pista 1</span> Calculen <span class="mi"><i>f</i>(<span class="ou">−</span>1)</span> con cuidado con los signos.</li><li class="hint" data-hint="e5b-1" hidden><span class="hint-n">Pista 2</span> Para derivar <span class="mi"><span class="fr"><span class="fn">1</span><span class="fd"><i>x</i></span></span></span> conviene escribirla como <span class="mi"><span class="at"><i>x</i><sup><span class="ou">−</span>1</sup></span></span>.</li><li class="hint" data-hint="e5b-2" hidden><span class="hint-n">Pista 3</span> Reemplacen <span class="mi"><span class="at"><i>x</i><sub>0</sub></span><wbr><span class="os">=</span><span class="ou">−</span>1</span> en la derivada, armen la recta y despejen <span class="mi"><i>y</i></span>.</li></ol>
+    <button type="button" class="btn-ghost" data-more="e5b" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e5b">
+<label class="gate"><input type="checkbox" data-gate="e5b"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e5b">
+<p class="cq">Escriban la recta como <span class="mi"><i>y</i><wbr><span class="os">=</span><i>m</i><i>x</i><wbr><span class="ob">+</span><i>b</i></span>.</p>
+<div class="nums">
+<label class="numf"><span class="mi"><i>m</i></span> = <input type="text" inputmode="decimal" data-num="e5b-0" autocomplete="off"></label>
+<label class="numf"><span class="mi"><i>b</i></span> = <input type="text" inputmode="decimal" data-num="e5b-1" autocomplete="off"></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e5b">Verificar</button><span class="tries" data-tries="e5b"></span></div>
+<div class="fb" data-fb="e5b" aria-live="polite"></div>
+</div></div>
+</article>
+  <div class="puesta">
+    <h3>Al volver a la sala principal</h3>
+    <ul><li>Un grupo cuenta cómo transformó el límite de E3 c) para poder aplicar la regla.</li><li>Otro grupo muestra la recta de E5 b) y cómo derivó el término con la fracción.</li></ul>
+  </div>
+</section>
+<section class="tanda" id="t3" data-tanda="t3">
+  <div class="tanda-head">
+    <div>
+      <span class="badge">Tanda 3 · 25 min</span>
+      <h2>Estudio de función</h2>
+      <p class="tanda-intro">En E4 a) cada grupo estudia <strong>una parte</strong> de la función, según su número: grupos 1, 4 y 7 → Parte A; grupos 2, 5 y 8 → Parte B; grupos 3 y 6 → Parte C. En la puesta en común se arma el gráfico entre todos. Si terminan, sigan con E4 b).</p>
+    </div>
+    <div class="timer" data-timer="t3" data-min="25">
+      <div class="timer-lbl">Tiempo de la tanda</div>
+      <div class="timer-val" data-tv="t3">25:00</div>
+      <div class="timer-btns">
+        <button type="button" class="btn-sm" data-tgo="t3">Iniciar</button>
+        <button type="button" class="btn-sm ghost" data-treset="t3">Reiniciar</button>
+      </div>
+    </div>
+  </div>
+  <article class="ej" id="ej-e4A">
+  <header class="ej-head"><h3 class="ej-tit">E4 a) · Parte A</h3><span class="ej-sub">Dominio y asíntotas</span><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><div class="calc"><i>g</i>(<i>x</i>)<wbr><span class="os">=</span><span class="fr"><span class="fn"><span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">+</span>1</span><span class="fd"><span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">−</span>1</span></span></div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e4A-0" hidden><span class="hint-n">Pista 1</span> ¿Qué valores de <span class="mi"><i>x</i></span> anulan el denominador?</li><li class="hint" data-hint="e4A-1" hidden><span class="hint-n">Pista 2</span> En cada uno de esos valores calculen los dos límites laterales. ¿Tienden a infinito?</li><li class="hint" data-hint="e4A-2" hidden><span class="hint-n">Pista 3</span> Para la asíntota horizontal calculen <span class="mi"><span class="at"><span class="ro">lím</span><sub><i>x</i><wbr><span class="os">→</span>∞</sub></span> <i>g</i>(<i>x</i>)</span> y <span class="mi"><span class="at"><span class="ro">lím</span><sub><i>x</i><wbr><span class="os">→</span><span class="ou">−</span>∞</sub></span> <i>g</i>(<i>x</i>)</span>.</li></ol>
+    <button type="button" class="btn-ghost" data-more="e4A" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e4A">
+<label class="gate"><input type="checkbox" data-gate="e4A"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e4A">
+<p class="cq">Marquen las asíntotas verticales.</p>
+<div class="chips">
+<label class="chip"><input type="checkbox" name="e4A" value="m1"><span><span class="mi"><i>x</i><wbr><span class="os">=</span><span class="ou">−</span>1</span></span></label>
+<label class="chip"><input type="checkbox" name="e4A" value="z"><span><span class="mi"><i>x</i><wbr><span class="os">=</span>0</span></span></label>
+<label class="chip"><input type="checkbox" name="e4A" value="p1"><span><span class="mi"><i>x</i><wbr><span class="os">=</span>1</span></span></label>
+</div>
+<div class="nums"><label class="numf">Asíntota horizontal: <span class="mi"><i>y</i></span> = <input type="text" inputmode="decimal" data-num="e4A-x" autocomplete="off"></label></div>
+<div class="check-actions"><button type="button" class="btn" data-check="e4A">Verificar</button><span class="tries" data-tries="e4A"></span></div>
+<div class="fb" data-fb="e4A" aria-live="polite"></div>
+</div></div>
+</article>
+<article class="ej" id="ej-e4B">
+  <header class="ej-head"><h3 class="ej-tit">E4 a) · Parte B</h3><span class="ej-sub">Crecimiento y extremos</span><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><div class="calc"><i>g</i>(<i>x</i>)<wbr><span class="os">=</span><span class="fr"><span class="fn"><span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">+</span>1</span><span class="fd"><span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">−</span>1</span></span></div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e4B-0" hidden><span class="hint-n">Pista 1</span> Deriven con la regla del cociente y simplifiquen el numerador antes de seguir.</li><li class="hint" data-hint="e4B-1" hidden><span class="hint-n">Pista 2</span> ¿Dónde se anula <span class="mi"><span class="at"><i>g</i>′</span></span>? Los valores que no están en el dominio no son puntos críticos, pero sí separan intervalos.</li><li class="hint" data-hint="e4B-2" hidden><span class="hint-n">Pista 3</span> Armen la tabla de signos de <span class="mi"><span class="at"><i>g</i>′</span></span> con todos los intervalos, sin olvidar <span class="mi"><i>x</i><wbr><span class="os">=</span><span class="ou">−</span>1</span> y <span class="mi"><i>x</i><wbr><span class="os">=</span>1</span>.</li></ol>
+    <button type="button" class="btn-ghost" data-more="e4B" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e4B">
+<label class="gate"><input type="checkbox" data-gate="e4B"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e4B">
+<p class="cq">Escriban el extremo relativo que encontraron.</p>
+<div class="nums">
+<label class="numf">Abscisa <span class="mi"><i>x</i></span> = <input type="text" inputmode="decimal" data-num="e4B-0" autocomplete="off"></label>
+<label class="numf">Ordenada <span class="mi"><i>y</i></span> = <input type="text" inputmode="decimal" data-num="e4B-1" autocomplete="off"></label>
+</div>
+<div class="choices inline"><span class="cq2">¿Qué tipo de extremo es?</span>
+<label class="choice"><input type="radio" name="e4B-tipo" value="max"><span>Máximo relativo</span></label>
+<label class="choice"><input type="radio" name="e4B-tipo" value="min"><span>Mínimo relativo</span></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e4B">Verificar</button><span class="tries" data-tries="e4B"></span></div>
+<div class="fb" data-fb="e4B" aria-live="polite"></div>
+</div></div>
+</article>
+<article class="ej" id="ej-e4C">
+  <header class="ej-head"><h3 class="ej-tit">E4 a) · Parte C</h3><span class="ej-sub">Concavidad</span><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><div class="calc"><i>g</i>(<i>x</i>)<wbr><span class="os">=</span><span class="fr"><span class="fn"><span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">+</span>1</span><span class="fd"><span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">−</span>1</span></span></div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e4C-0" hidden><span class="hint-n">Pista 1</span> Necesitan <span class="mi"><i>g</i>″</span>: deriven <span class="mi"><span class="at"><i>g</i>′</span></span> otra vez con la regla del cociente y saquen factor común.</li><li class="hint" data-hint="e4C-1" hidden><span class="hint-n">Pista 2</span> Miren el numerador de <span class="mi"><i>g</i>″</span>: ¿puede ser negativo o cero? Entonces el signo depende sólo del denominador.</li><li class="hint" data-hint="e4C-2" hidden><span class="hint-n">Pista 3</span> Para que haya punto de inflexión, la concavidad tiene que cambiar en un punto <strong>del dominio</strong>.</li></ol>
+    <button type="button" class="btn-ghost" data-more="e4C" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e4C">
+<label class="gate"><input type="checkbox" data-gate="e4C"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e4C">
+<p class="cq">¿Tiene <span class="mi"><i>g</i></span> punto de inflexión?</p>
+<div class="choices">
+<label class="choice"><input type="radio" name="e4C" value="a"><span>Sí, en <span class="mi"><i>x</i><wbr><span class="os">=</span>0</span></span></label>
+<label class="choice"><input type="radio" name="e4C" value="b"><span>Sí, en <span class="mi"><i>x</i><wbr><span class="os">=</span><span class="ou">−</span>1</span> y en <span class="mi"><i>x</i><wbr><span class="os">=</span>1</span></span></label>
+<label class="choice"><input type="radio" name="e4C" value="c"><span>No tiene</span></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e4C">Verificar</button><span class="tries" data-tries="e4C"></span></div>
+<div class="fb" data-fb="e4C" aria-live="polite"></div>
+</div></div>
+</article>
+<article class="ej" id="ej-e4b">
+  <header class="ej-head"><h3 class="ej-tit">E4 b)</h3><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><p>Realicen el estudio completo de la función.</p><div class="calc"><i>h</i>(<i>x</i>)<wbr><span class="os">=</span><i>x</i><span class="sq"><svg viewBox="0 0 10 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0.6 14.5 L2.8 14.5 L5.2 22.4 L9.4 1.2" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg><span class="sq-b">4<wbr><span class="ob">−</span><span class="at"><i>x</i><sup>2</sup></span></span></span></div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e4b-0" hidden><span class="hint-n">Pista 1</span> Dominio: lo de adentro de la raíz tiene que ser mayor o igual que <span class="mi">0</span>.</li><li class="hint" data-hint="e4b-1" hidden><span class="hint-n">Pista 2</span> Deriven con la regla del producto y la de la cadena. Para igualar a <span class="mi">0</span>, saquen común denominador.</li><li class="hint" data-hint="e4b-2" hidden><span class="hint-n">Pista 3</span> Además de los ceros de <span class="mi"><span class="at"><i>h</i>′</span></span>, revisen dónde <span class="mi"><span class="at"><i>h</i>′</span></span> no existe.</li></ol>
+    <button type="button" class="btn-ghost" data-more="e4b" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e4b">
+<label class="gate"><input type="checkbox" data-gate="e4b"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e4b">
+<p class="cq">¿<span class="mi"><i>x</i><wbr><span class="os">=</span>2</span> es un mínimo relativo de <span class="mi"><i>h</i></span>?</p>
+<div class="choices">
+<label class="choice"><input type="radio" name="e4b" value="a"><span>Sí, porque <span class="mi"><i>h</i>(2)<wbr><span class="os">=</span>0</span> es menor que los valores cercanos</span></label>
+<label class="choice"><input type="radio" name="e4b" value="b"><span>No: es un punto crítico, pero no es extremo relativo</span></label>
+<label class="choice"><input type="radio" name="e4b" value="c"><span>No, porque no es un punto crítico</span></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e4b">Verificar</button><span class="tries" data-tries="e4b"></span></div>
+<div class="fb" data-fb="e4b" aria-live="polite"></div>
+</div></div>
+</article>
+  <div class="puesta">
+    <h3>Al volver a la sala principal</h3>
+    <ul><li>Cada parte presenta su resultado en orden (A, B, C) y el docente arma el gráfico de <span class="mi"><i>g</i></span> con lo que dicen.</li><li>Discusión final: ¿<span class="mi"><i>x</i><wbr><span class="os">=</span>2</span> es un mínimo relativo de <span class="mi"><i>h</i></span>?</li></ul>
+  </div>
+</section>
+<section class="tanda" id="t4" data-tanda="t4">
+  <div class="tanda-head">
+    <div>
+      <span class="badge">Tanda 4 · 25 min</span>
+      <h2>Integrales</h2>
+      <p class="tanda-intro">Cada grupo resuelve <strong>una integral por partes y una por sustitución</strong> de E6: los grupos impares eligen entre a), b), c) y d); los pares, entre e), f), g) y h). Antes de resolver, decidan el método. Si les sobra tiempo, hagan "Encontrá el error".</p>
+    </div>
+    <div class="timer" data-timer="t4" data-min="25">
+      <div class="timer-lbl">Tiempo de la tanda</div>
+      <div class="timer-val" data-tv="t4">25:00</div>
+      <div class="timer-btns">
+        <button type="button" class="btn-sm" data-tgo="t4">Iniciar</button>
+        <button type="button" class="btn-sm ghost" data-treset="t4">Reiniciar</button>
+      </div>
+    </div>
+  </div>
+  <article class="ej" id="ej-e6a">
+  <header class="ej-head"><h3 class="ej-tit">E6 a)</h3><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><div class="calc"><span class="int">∫</span> <i>x</i><wbr><span class="ob">·</span><span class="ro">cos</span>(<i>x</i>) <span class="ro">d</span><i>x</i></div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e6a-0" hidden><span class="hint-n">Pista 1</span> Es un producto de dos funciones, y ninguna es la derivada de la otra.</li><li class="hint" data-hint="e6a-1" hidden><span class="hint-n">Pista 2</span> Elijan <span class="mi"><i>u</i><wbr><span class="os">=</span><i>x</i></span>, que se simplifica al derivarla, y <span class="mi"><span class="ro">d</span><i>v</i><wbr><span class="os">=</span><span class="ro">cos</span>(<i>x</i>) <span class="ro">d</span><i>x</i></span>.</li><li class="hint" data-hint="e6a-2" hidden><span class="hint-n">Pista 3</span> Fórmula: <span class="mi"><span class="int">∫</span> <i>u</i> <span class="ro">d</span><i>v</i><wbr><span class="os">=</span><i>u</i><wbr><span class="ob">·</span><i>v</i><wbr><span class="ob">−</span><span class="int">∫</span> <i>v</i> <span class="ro">d</span><i>u</i></span>. Cuidado con el signo al integrar <span class="mi"><span class="ro">sen</span>(<i>x</i>)</span>.</li></ol>
+    <button type="button" class="btn-ghost" data-more="e6a" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e6a">
+<label class="gate"><input type="checkbox" data-gate="e6a"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e6a">
+<p class="cq">¿Cuál de estas es la primitiva que obtuvieron?</p>
+<div class="choices">
+<label class="choice"><input type="radio" name="e6a" value="o1"><span><span class="mi"><i>x</i> <span class="ro">sen</span>(<i>x</i>)<wbr><span class="ob">−</span><span class="ro">cos</span>(<i>x</i>)<wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6a" value="o0"><span><span class="mi"><i>x</i> <span class="ro">sen</span>(<i>x</i>)<wbr><span class="ob">+</span><span class="ro">cos</span>(<i>x</i>)<wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6a" value="o2"><span><span class="mi"><span class="fr"><span class="fn"><span class="at"><i>x</i><sup>2</sup></span></span><span class="fd">2</span></span> <span class="ro">sen</span>(<i>x</i>)<wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6a" value="o3"><span><span class="mi"><span class="ou">−</span><i>x</i> <span class="ro">sen</span>(<i>x</i>)<wbr><span class="ob">+</span><span class="ro">cos</span>(<i>x</i>)<wbr><span class="ob">+</span><i>k</i></span></span></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e6a">Verificar</button><span class="tries" data-tries="e6a"></span></div>
+<div class="fb" data-fb="e6a" aria-live="polite"></div>
+</div></div>
+</article>
+<article class="ej" id="ej-e6b">
+  <header class="ej-head"><h3 class="ej-tit">E6 b)</h3><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><div class="calc"><span class="int">∫</span> <span class="fr"><span class="fn"><span class="at"><i>x</i><sup>5</sup></span></span><span class="fd"><span class="sq"><svg viewBox="0 0 10 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0.6 14.5 L2.8 14.5 L5.2 22.4 L9.4 1.2" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg><span class="sq-b">1<wbr><span class="ob">−</span><span class="at"><i>x</i><sup>6</sup></span></span></span></span></span> <span class="ro">d</span><i>x</i></div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e6b-0" hidden><span class="hint-n">Pista 1</span> Miren lo de adentro de la raíz: ¿su derivada aparece en el integrando, salvo una constante?</li><li class="hint" data-hint="e6b-1" hidden><span class="hint-n">Pista 2</span> Con <span class="mi"><i>t</i><wbr><span class="os">=</span>1<wbr><span class="ob">−</span><span class="at"><i>x</i><sup>6</sup></span></span> queda <span class="mi"><span class="ro">d</span><i>t</i><wbr><span class="os">=</span><span class="ou">−</span>6<span class="at"><i>x</i><sup>5</sup></span> <span class="ro">d</span><i>x</i></span>.</li><li class="hint" data-hint="e6b-2" hidden><span class="hint-n">Pista 3</span> Despejen <span class="mi"><span class="at"><i>x</i><sup>5</sup></span> <span class="ro">d</span><i>x</i></span> y escriban la integral en <span class="mi"><i>t</i></span>: es una potencia, <span class="mi"><span class="at"><i>t</i><sup><span class="ou">−</span><span class="fr"><span class="fn">1</span><span class="fd">2</span></span></sup></span></span>.</li></ol>
+    <button type="button" class="btn-ghost" data-more="e6b" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e6b">
+<label class="gate"><input type="checkbox" data-gate="e6b"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e6b">
+<p class="cq">¿Cuál de estas es la primitiva que obtuvieron?</p>
+<div class="choices">
+<label class="choice"><input type="radio" name="e6b" value="o2"><span><span class="mi"><span class="ou">−</span><span class="fr"><span class="fn">1</span><span class="fd">6</span></span><span class="sq"><svg viewBox="0 0 10 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0.6 14.5 L2.8 14.5 L5.2 22.4 L9.4 1.2" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg><span class="sq-b">1<wbr><span class="ob">−</span><span class="at"><i>x</i><sup>6</sup></span></span></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6b" value="o1"><span><span class="mi"><span class="fr"><span class="fn">1</span><span class="fd">3</span></span><span class="sq"><svg viewBox="0 0 10 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0.6 14.5 L2.8 14.5 L5.2 22.4 L9.4 1.2" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg><span class="sq-b">1<wbr><span class="ob">−</span><span class="at"><i>x</i><sup>6</sup></span></span></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6b" value="o0"><span><span class="mi"><span class="ou">−</span><span class="fr"><span class="fn">1</span><span class="fd">3</span></span><span class="sq"><svg viewBox="0 0 10 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0.6 14.5 L2.8 14.5 L5.2 22.4 L9.4 1.2" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg><span class="sq-b">1<wbr><span class="ob">−</span><span class="at"><i>x</i><sup>6</sup></span></span></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6b" value="o3"><span><span class="mi"><span class="ou">−</span>2<span class="sq"><svg viewBox="0 0 10 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0.6 14.5 L2.8 14.5 L5.2 22.4 L9.4 1.2" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg><span class="sq-b">1<wbr><span class="ob">−</span><span class="at"><i>x</i><sup>6</sup></span></span></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e6b">Verificar</button><span class="tries" data-tries="e6b"></span></div>
+<div class="fb" data-fb="e6b" aria-live="polite"></div>
+</div></div>
+</article>
+<article class="ej" id="ej-e6c">
+  <header class="ej-head"><h3 class="ej-tit">E6 c)</h3><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><div class="calc"><span class="int">∫</span> <i>x</i><wbr><span class="ob">·</span><span class="ro">sen</span>(<i>x</i>) <span class="ro">d</span><i>x</i></div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e6c-0" hidden><span class="hint-n">Pista 1</span> Es un producto de dos funciones, y ninguna es la derivada de la otra.</li><li class="hint" data-hint="e6c-1" hidden><span class="hint-n">Pista 2</span> Elijan <span class="mi"><i>u</i><wbr><span class="os">=</span><i>x</i></span> y <span class="mi"><span class="ro">d</span><i>v</i><wbr><span class="os">=</span><span class="ro">sen</span>(<i>x</i>) <span class="ro">d</span><i>x</i></span>. ¿Cuánto vale <span class="mi"><i>v</i></span>?</li><li class="hint" data-hint="e6c-2" hidden><span class="hint-n">Pista 3</span> Apliquen <span class="mi"><span class="int">∫</span> <i>u</i> <span class="ro">d</span><i>v</i><wbr><span class="os">=</span><i>u</i><wbr><span class="ob">·</span><i>v</i><wbr><span class="ob">−</span><span class="int">∫</span> <i>v</i> <span class="ro">d</span><i>u</i></span> y controlen cada signo.</li></ol>
+    <button type="button" class="btn-ghost" data-more="e6c" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e6c">
+<label class="gate"><input type="checkbox" data-gate="e6c"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e6c">
+<p class="cq">¿Cuál de estas es la primitiva que obtuvieron?</p>
+<div class="choices">
+<label class="choice"><input type="radio" name="e6c" value="o0"><span><span class="mi"><span class="ou">−</span><i>x</i> <span class="ro">cos</span>(<i>x</i>)<wbr><span class="ob">+</span><span class="ro">sen</span>(<i>x</i>)<wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6c" value="o3"><span><span class="mi"><span class="ou">−</span><span class="fr"><span class="fn"><span class="at"><i>x</i><sup>2</sup></span></span><span class="fd">2</span></span> <span class="ro">cos</span>(<i>x</i>)<wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6c" value="o1"><span><span class="mi"><span class="ou">−</span><i>x</i> <span class="ro">cos</span>(<i>x</i>)<wbr><span class="ob">−</span><span class="ro">sen</span>(<i>x</i>)<wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6c" value="o2"><span><span class="mi"><i>x</i> <span class="ro">cos</span>(<i>x</i>)<wbr><span class="ob">+</span><span class="ro">sen</span>(<i>x</i>)<wbr><span class="ob">+</span><i>k</i></span></span></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e6c">Verificar</button><span class="tries" data-tries="e6c"></span></div>
+<div class="fb" data-fb="e6c" aria-live="polite"></div>
+</div></div>
+</article>
+<article class="ej" id="ej-e6d">
+  <header class="ej-head"><h3 class="ej-tit">E6 d)</h3><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><div class="calc"><span class="int">∫</span> 3<i>x</i><wbr><span class="ob">·</span><span class="sq"><svg viewBox="0 0 10 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0.6 14.5 L2.8 14.5 L5.2 22.4 L9.4 1.2" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg><span class="sq-b"><span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">+</span>1</span></span> <span class="ro">d</span><i>x</i></div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e6d-0" hidden><span class="hint-n">Pista 1</span> Miren lo de adentro de la raíz: ¿su derivada aparece en el integrando, salvo una constante?</li><li class="hint" data-hint="e6d-1" hidden><span class="hint-n">Pista 2</span> Con <span class="mi"><i>t</i><wbr><span class="os">=</span><span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">+</span>1</span> queda <span class="mi"><span class="ro">d</span><i>t</i><wbr><span class="os">=</span>2<i>x</i> <span class="ro">d</span><i>x</i></span>.</li><li class="hint" data-hint="e6d-2" hidden><span class="hint-n">Pista 3</span> Despejen <span class="mi"><i>x</i> <span class="ro">d</span><i>x</i></span> y escriban la raíz como potencia, <span class="mi"><span class="at"><i>t</i><sup><span class="fr"><span class="fn">1</span><span class="fd">2</span></span></sup></span></span>.</li></ol>
+    <button type="button" class="btn-ghost" data-more="e6d" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e6d">
+<label class="gate"><input type="checkbox" data-gate="e6d"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e6d">
+<p class="cq">¿Cuál de estas es la primitiva que obtuvieron?</p>
+<div class="choices">
+<label class="choice"><input type="radio" name="e6d" value="o3"><span><span class="mi"><span class="fr"><span class="fn">3</span><span class="fd">2</span></span>(<span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">+</span>1<span class="at">)<sup><span class="fr"><span class="fn">3</span><span class="fd">2</span></span></sup></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6d" value="o2"><span><span class="mi"><span class="fr"><span class="fn">1</span><span class="fd">2</span></span>(<span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">+</span>1<span class="at">)<sup><span class="fr"><span class="fn">3</span><span class="fd">2</span></span></sup></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6d" value="o0"><span><span class="mi">(<span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">+</span>1<span class="at">)<sup><span class="fr"><span class="fn">3</span><span class="fd">2</span></span></sup></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6d" value="o1"><span><span class="mi">2(<span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">+</span>1<span class="at">)<sup><span class="fr"><span class="fn">3</span><span class="fd">2</span></span></sup></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e6d">Verificar</button><span class="tries" data-tries="e6d"></span></div>
+<div class="fb" data-fb="e6d" aria-live="polite"></div>
+</div></div>
+</article>
+<article class="ej" id="ej-e6e">
+  <header class="ej-head"><h3 class="ej-tit">E6 e)</h3><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><div class="calc"><span class="int">∫</span> <span class="fr"><span class="fn"><span class="at"><i>x</i><sup>2</sup></span></span><span class="fd"><span class="sq"><svg viewBox="0 0 10 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0.6 14.5 L2.8 14.5 L5.2 22.4 L9.4 1.2" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg><span class="sq-b">1<wbr><span class="ob">+</span><span class="at"><i>x</i><sup>3</sup></span></span></span></span></span> <span class="ro">d</span><i>x</i></div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e6e-0" hidden><span class="hint-n">Pista 1</span> Miren lo de adentro de la raíz: ¿su derivada aparece en el integrando, salvo una constante?</li><li class="hint" data-hint="e6e-1" hidden><span class="hint-n">Pista 2</span> Con <span class="mi"><i>t</i><wbr><span class="os">=</span>1<wbr><span class="ob">+</span><span class="at"><i>x</i><sup>3</sup></span></span> queda <span class="mi"><span class="ro">d</span><i>t</i><wbr><span class="os">=</span>3<span class="at"><i>x</i><sup>2</sup></span> <span class="ro">d</span><i>x</i></span>.</li><li class="hint" data-hint="e6e-2" hidden><span class="hint-n">Pista 3</span> Despejen <span class="mi"><span class="at"><i>x</i><sup>2</sup></span> <span class="ro">d</span><i>x</i></span> e integren <span class="mi"><span class="at"><i>t</i><sup><span class="ou">−</span><span class="fr"><span class="fn">1</span><span class="fd">2</span></span></sup></span></span>.</li></ol>
+    <button type="button" class="btn-ghost" data-more="e6e" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e6e">
+<label class="gate"><input type="checkbox" data-gate="e6e"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e6e">
+<p class="cq">¿Cuál de estas es la primitiva que obtuvieron?</p>
+<div class="choices">
+<label class="choice"><input type="radio" name="e6e" value="o1"><span><span class="mi"><span class="fr"><span class="fn">1</span><span class="fd">3</span></span><span class="sq"><svg viewBox="0 0 10 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0.6 14.5 L2.8 14.5 L5.2 22.4 L9.4 1.2" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg><span class="sq-b">1<wbr><span class="ob">+</span><span class="at"><i>x</i><sup>3</sup></span></span></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6e" value="o3"><span><span class="mi"><span class="fr"><span class="fn">2</span><span class="fd">3</span></span>(1<wbr><span class="ob">+</span><span class="at"><i>x</i><sup>3</sup></span><span class="at">)<sup><span class="fr"><span class="fn">3</span><span class="fd">2</span></span></sup></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6e" value="o0"><span><span class="mi"><span class="fr"><span class="fn">2</span><span class="fd">3</span></span><span class="sq"><svg viewBox="0 0 10 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0.6 14.5 L2.8 14.5 L5.2 22.4 L9.4 1.2" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg><span class="sq-b">1<wbr><span class="ob">+</span><span class="at"><i>x</i><sup>3</sup></span></span></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6e" value="o2"><span><span class="mi">2<span class="sq"><svg viewBox="0 0 10 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0.6 14.5 L2.8 14.5 L5.2 22.4 L9.4 1.2" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg><span class="sq-b">1<wbr><span class="ob">+</span><span class="at"><i>x</i><sup>3</sup></span></span></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e6e">Verificar</button><span class="tries" data-tries="e6e"></span></div>
+<div class="fb" data-fb="e6e" aria-live="polite"></div>
+</div></div>
+</article>
+<article class="ej" id="ej-e6f">
+  <header class="ej-head"><h3 class="ej-tit">E6 f)</h3><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><div class="calc"><span class="int">∫</span> <i>x</i><wbr><span class="ob">·</span><span class="at"><span class="ro">e</span><sup><i>x</i></sup></span> <span class="ro">d</span><i>x</i></div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e6f-0" hidden><span class="hint-n">Pista 1</span> Es un producto de un polinomio y una exponencial.</li><li class="hint" data-hint="e6f-1" hidden><span class="hint-n">Pista 2</span> Elijan <span class="mi"><i>u</i><wbr><span class="os">=</span><i>x</i></span> y <span class="mi"><span class="ro">d</span><i>v</i><wbr><span class="os">=</span><span class="at"><span class="ro">e</span><sup><i>x</i></sup></span> <span class="ro">d</span><i>x</i></span>.</li><li class="hint" data-hint="e6f-2" hidden><span class="hint-n">Pista 3</span> Apliquen <span class="mi"><span class="int">∫</span> <i>u</i> <span class="ro">d</span><i>v</i><wbr><span class="os">=</span><i>u</i><wbr><span class="ob">·</span><i>v</i><wbr><span class="ob">−</span><span class="int">∫</span> <i>v</i> <span class="ro">d</span><i>u</i></span> y saquen factor común al final.</li></ol>
+    <button type="button" class="btn-ghost" data-more="e6f" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e6f">
+<label class="gate"><input type="checkbox" data-gate="e6f"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e6f">
+<p class="cq">¿Cuál de estas es la primitiva que obtuvieron?</p>
+<div class="choices">
+<label class="choice"><input type="radio" name="e6f" value="o2"><span><span class="mi"><span class="fr"><span class="fn"><span class="at"><i>x</i><sup>2</sup></span></span><span class="fd">2</span></span> <span class="at"><span class="ro">e</span><sup><i>x</i></sup></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6f" value="o0"><span><span class="mi">(<i>x</i><wbr><span class="ob">−</span>1) <span class="at"><span class="ro">e</span><sup><i>x</i></sup></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6f" value="o3"><span><span class="mi"><i>x</i> <span class="at"><span class="ro">e</span><sup><i>x</i></sup></span><wbr><span class="ob">−</span><i>x</i><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6f" value="o1"><span><span class="mi">(<i>x</i><wbr><span class="ob">+</span>1) <span class="at"><span class="ro">e</span><sup><i>x</i></sup></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e6f">Verificar</button><span class="tries" data-tries="e6f"></span></div>
+<div class="fb" data-fb="e6f" aria-live="polite"></div>
+</div></div>
+</article>
+<article class="ej" id="ej-e6g">
+  <header class="ej-head"><h3 class="ej-tit">E6 g)</h3><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><div class="calc"><span class="int">∫</span> 4<i>x</i><wbr><span class="ob">·</span><span class="sq"><svg viewBox="0 0 10 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0.6 14.5 L2.8 14.5 L5.2 22.4 L9.4 1.2" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg><span class="sq-b"><span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">+</span>5</span></span> <span class="ro">d</span><i>x</i></div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e6g-0" hidden><span class="hint-n">Pista 1</span> Miren lo de adentro de la raíz: ¿su derivada aparece en el integrando, salvo una constante?</li><li class="hint" data-hint="e6g-1" hidden><span class="hint-n">Pista 2</span> Con <span class="mi"><i>t</i><wbr><span class="os">=</span><span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">+</span>5</span> queda <span class="mi"><span class="ro">d</span><i>t</i><wbr><span class="os">=</span>2<i>x</i> <span class="ro">d</span><i>x</i></span>.</li><li class="hint" data-hint="e6g-2" hidden><span class="hint-n">Pista 3</span> Despejen <span class="mi"><i>x</i> <span class="ro">d</span><i>x</i></span> e integren <span class="mi"><span class="at"><i>t</i><sup><span class="fr"><span class="fn">1</span><span class="fd">2</span></span></sup></span></span>.</li></ol>
+    <button type="button" class="btn-ghost" data-more="e6g" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e6g">
+<label class="gate"><input type="checkbox" data-gate="e6g"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e6g">
+<p class="cq">¿Cuál de estas es la primitiva que obtuvieron?</p>
+<div class="choices">
+<label class="choice"><input type="radio" name="e6g" value="o0"><span><span class="mi"><span class="fr"><span class="fn">4</span><span class="fd">3</span></span>(<span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">+</span>5<span class="at">)<sup><span class="fr"><span class="fn">3</span><span class="fd">2</span></span></sup></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6g" value="o2"><span><span class="mi"><span class="fr"><span class="fn">2</span><span class="fd">3</span></span>(<span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">+</span>5<span class="at">)<sup><span class="fr"><span class="fn">3</span><span class="fd">2</span></span></sup></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6g" value="o1"><span><span class="mi"><span class="fr"><span class="fn">8</span><span class="fd">3</span></span>(<span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">+</span>5<span class="at">)<sup><span class="fr"><span class="fn">3</span><span class="fd">2</span></span></sup></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6g" value="o3"><span><span class="mi">3(<span class="at"><i>x</i><sup>2</sup></span><wbr><span class="ob">+</span>5<span class="at">)<sup><span class="fr"><span class="fn">3</span><span class="fd">2</span></span></sup></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e6g">Verificar</button><span class="tries" data-tries="e6g"></span></div>
+<div class="fb" data-fb="e6g" aria-live="polite"></div>
+</div></div>
+</article>
+<article class="ej" id="ej-e6h">
+  <header class="ej-head"><h3 class="ej-tit">E6 h)</h3><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><div class="calc"><span class="int">∫</span> <i>x</i><wbr><span class="ob">·</span><span class="ro">ln</span>(<i>x</i>) <span class="ro">d</span><i>x</i></div></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="e6h-0" hidden><span class="hint-n">Pista 1</span> Es un producto de dos funciones. Una de ellas no tiene primitiva inmediata.</li><li class="hint" data-hint="e6h-1" hidden><span class="hint-n">Pista 2</span> Elijan <span class="mi"><i>u</i><wbr><span class="os">=</span><span class="ro">ln</span>(<i>x</i>)</span> y <span class="mi"><span class="ro">d</span><i>v</i><wbr><span class="os">=</span><i>x</i> <span class="ro">d</span><i>x</i></span>.</li><li class="hint" data-hint="e6h-2" hidden><span class="hint-n">Pista 3</span> Después de aplicar la fórmula, simplifiquen <span class="mi"><i>v</i><wbr><span class="ob">·</span><span class="ro">d</span><i>u</i></span> antes de integrar.</li></ol>
+    <button type="button" class="btn-ghost" data-more="e6h" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="e6h">
+<label class="gate"><input type="checkbox" data-gate="e6h"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="e6h">
+<p class="cq">¿Cuál de estas es la primitiva que obtuvieron?</p>
+<div class="choices">
+<label class="choice"><input type="radio" name="e6h" value="o3"><span><span class="mi"><i>x</i> <span class="ro">ln</span>(<i>x</i>)<wbr><span class="ob">−</span><i>x</i><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6h" value="o0"><span><span class="mi"><span class="fr"><span class="fn"><span class="at"><i>x</i><sup>2</sup></span></span><span class="fd">2</span></span> <span class="ro">ln</span>(<i>x</i>)<wbr><span class="ob">−</span><span class="fr"><span class="fn"><span class="at"><i>x</i><sup>2</sup></span></span><span class="fd">4</span></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6h" value="o1"><span><span class="mi"><span class="fr"><span class="fn"><span class="at"><i>x</i><sup>2</sup></span></span><span class="fd">2</span></span> <span class="ro">ln</span>(<i>x</i>)<wbr><span class="ob">−</span><span class="fr"><span class="fn"><span class="at"><i>x</i><sup>2</sup></span></span><span class="fd">2</span></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+<label class="choice"><input type="radio" name="e6h" value="o2"><span><span class="mi"><span class="fr"><span class="fn"><span class="at"><i>x</i><sup>2</sup></span></span><span class="fd">2</span></span> <span class="ro">ln</span>(<i>x</i>)<wbr><span class="ob">+</span><span class="fr"><span class="fn"><span class="at"><i>x</i><sup>2</sup></span></span><span class="fd">4</span></span><wbr><span class="ob">+</span><i>k</i></span></span></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="e6h">Verificar</button><span class="tries" data-tries="e6h"></span></div>
+<div class="fb" data-fb="e6h" aria-live="polite"></div>
+</div></div>
+</article>
+<article class="ej" id="ej-err">
+  <header class="ej-head"><h3 class="ej-tit">Encontrá el error</h3><div class="ej-lab"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div></header>
+  <div class="enun"><p>Un estudiante resolvió <span class="mi"><span class="int">∫</span> <i>x</i> <span class="at"><span class="ro">e</span><sup><span class="ou">−</span><i>x</i></sup></span> <span class="ro">d</span><i>x</i></span> por partes y obtuvo <span class="mi"><i>x</i> <span class="at"><span class="ro">e</span><sup><span class="ou">−</span><i>x</i></sup></span><wbr><span class="ob">+</span><span class="at"><span class="ro">e</span><sup><span class="ou">−</span><i>x</i></sup></span><wbr><span class="ob">+</span><i>k</i></span>. Al derivar su resultado no vuelve al integrando. ¿En qué renglón está el error?</p></div>
+  <div class="hints-box">
+    <ol class="hints"><li class="hint" data-hint="err-0" hidden><span class="hint-n">Pista 1</span> Deriven el resultado del estudiante: <span class="mi">(<i>x</i> <span class="at"><span class="ro">e</span><sup><span class="ou">−</span><i>x</i></sup></span><wbr><span class="ob">+</span><span class="at"><span class="ro">e</span><sup><span class="ou">−</span><i>x</i></sup></span><span class="at">)′</span></span>. ¿Qué les da?</li><li class="hint" data-hint="err-1" hidden><span class="hint-n">Pista 2</span> Revisen cada primitiva que usó. ¿Cuánto vale <span class="mi"><span class="int">∫</span> <span class="at"><span class="ro">e</span><sup><span class="ou">−</span><i>x</i></sup></span> <span class="ro">d</span><i>x</i></span>? Pueden verificarlo derivando.</li><li class="hint" data-hint="err-2" hidden><span class="hint-n">Pista 3</span> Un solo renglón tiene el error; los que siguen son coherentes con él.</li></ol>
+    <button type="button" class="btn-ghost" data-more="err" data-n="3">Pedir una pista</button>
+  </div>
+  <div class="check" data-ej="err">
+<label class="gate"><input type="checkbox" data-gate="err"> Ya tenemos el desarrollo completo escrito</label>
+<div class="check-body" data-body="err">
+<p class="cq">Toquen el renglón que tiene el error.</p>
+<div class="lines">
+<label class="line"><input type="radio" name="err" value="l0"><span><div class="calc"><i>u</i><wbr><span class="os">=</span><i>x</i><span class="gap"></span><wbr><span class="os">⇒</span><span class="gap"></span><span class="ro">d</span><i>u</i><wbr><span class="os">=</span><span class="ro">d</span><i>x</i></div></span></label>
+<label class="line"><input type="radio" name="err" value="l1"><span><div class="calc"><span class="ro">d</span><i>v</i><wbr><span class="os">=</span><span class="at"><span class="ro">e</span><sup><span class="ou">−</span><i>x</i></sup></span> <span class="ro">d</span><i>x</i><span class="gap"></span><wbr><span class="os">⇒</span><span class="gap"></span><i>v</i><wbr><span class="os">=</span><span class="at"><span class="ro">e</span><sup><span class="ou">−</span><i>x</i></sup></span></div></span></label>
+<label class="line"><input type="radio" name="err" value="l2"><span><div class="calc"><span class="int">∫</span> <i>x</i> <span class="at"><span class="ro">e</span><sup><span class="ou">−</span><i>x</i></sup></span> <span class="ro">d</span><i>x</i><wbr><span class="os">=</span><i>x</i><wbr><span class="ob">·</span><span class="at"><span class="ro">e</span><sup><span class="ou">−</span><i>x</i></sup></span><wbr><span class="ob">−</span><span class="int">∫</span> <span class="at"><span class="ro">e</span><sup><span class="ou">−</span><i>x</i></sup></span> <span class="ro">d</span><i>x</i></div></span></label>
+<label class="line"><input type="radio" name="err" value="l3"><span><div class="calc"><wbr><span class="os">=</span><i>x</i> <span class="at"><span class="ro">e</span><sup><span class="ou">−</span><i>x</i></sup></span><wbr><span class="ob">−</span>(<span class="ou">−</span><span class="at"><span class="ro">e</span><sup><span class="ou">−</span><i>x</i></sup></span>)<wbr><span class="ob">+</span><i>k</i></div></span></label>
+<label class="line"><input type="radio" name="err" value="l4"><span><div class="calc"><wbr><span class="os">=</span><i>x</i> <span class="at"><span class="ro">e</span><sup><span class="ou">−</span><i>x</i></sup></span><wbr><span class="ob">+</span><span class="at"><span class="ro">e</span><sup><span class="ou">−</span><i>x</i></sup></span><wbr><span class="ob">+</span><i>k</i></div></span></label>
+</div>
+<div class="check-actions"><button type="button" class="btn" data-check="err">Verificar</button><span class="tries" data-tries="err"></span></div>
+<div class="fb" data-fb="err" aria-live="polite"></div>
+</div></div>
+</article>
+  <div class="puesta">
+    <h3>Al volver a la sala principal</h3>
+    <ul><li>Antes de resolver: el docente pregunta en el chat qué método usaría cada uno en cada integral.</li><li>Un grupo explica una integral por partes y otro una por sustitución.</li></ul>
+  </div>
+</section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-quote">"La matemática no exige genios, exige constancia."</div>
+    <div class="footer-lab">
+      <div class="lab-name"><span class="bullet"></span><span class="lab">laboratorio</span><span class="best">best</span><span class="ia">-IA</span></div>
+      <div class="lab-sub">Prof. Ariel L. Cardozo Delgado</div>
+    </div>
+  </div>
+</footer>
+
+<script id="ans" type="application/octet-stream">eyJlMSI6IHsidHlwZSI6ICJtdWx0aSIsICJmYm9rIjogIkJpZW4uIEVuIDxzcGFuIGNsYXNzPVwibWlcIj48aT54PC9pPjx3YnI+PHNwYW4gY2xhc3M9XCJvc1wiPj08L3NwYW4+PHNwYW4gY2xhc3M9XCJvdVwiPuKIkjwvc3Bhbj4xPC9zcGFuPiBsb3MgbGF0ZXJhbGVzIHNvbiBkaXN0aW50b3MsIGFzw60gcXVlIGVsIGzDrW1pdGUgbm8gZXhpc3RlOiBlcyB1bmEgZGlzY29udGludWlkYWQgbm8gZXZpdGFibGUgZGUgc2FsdG8uIEVuIDxzcGFuIGNsYXNzPVwibWlcIj48aT54PC9pPjx3YnI+PHNwYW4gY2xhc3M9XCJvc1wiPj08L3NwYW4+MTwvc3Bhbj4gbG9zIGRvcyBsYXRlcmFsZXMgeSA8c3BhbiBjbGFzcz1cIm1pXCI+PGk+ZjwvaT4oMSk8L3NwYW4+IGNvaW5jaWRlbi4iLCAib2siOiBbIm0xIl0sICJmYiI6IHsieiI6ICI8c3BhbiBjbGFzcz1cIm1pXCI+PHNwYW4gY2xhc3M9XCJmclwiPjxzcGFuIGNsYXNzPVwiZm5cIj4xPC9zcGFuPjxzcGFuIGNsYXNzPVwiZmRcIj48aT54PC9pPjwvc3Bhbj48L3NwYW4+PC9zcGFuPiBubyBlc3TDoSBkZWZpbmlkYSBlbiA8c3BhbiBjbGFzcz1cIm1pXCI+PGk+eDwvaT48d2JyPjxzcGFuIGNsYXNzPVwib3NcIj49PC9zcGFuPjA8L3NwYW4+LCBwZXJvIGVzYSBmw7NybXVsYSBzw7NsbyBzZSB1c2EgcGFyYSA8c3BhbiBjbGFzcz1cIm1pXCI+PGk+eDwvaT48d2JyPjxzcGFuIGNsYXNzPVwib3NcIj4mZ3Q7PC9zcGFuPjE8L3NwYW4+OiBjZXJjYSBkZSA8c3BhbiBjbGFzcz1cIm1pXCI+MDwvc3Bhbj4gbGEgZnVuY2nDs24gdmFsZSA8c3BhbiBjbGFzcz1cIm1pXCI+PHNwYW4gY2xhc3M9XCJhdFwiPjxpPng8L2k+PHN1cD4yPC9zdXA+PC9zcGFuPjwvc3Bhbj4uIiwgInAxIjogIlJldmlzZW4gZXNlIHB1bnRvOiBjb21wYXJlbiBsb3MgZG9zIGxhdGVyYWxlcyBjb24gZWwgdmFsb3IgZGUgbGEgZnVuY2nDs24uIiwgIm5vIjogIkhheSBhbCBtZW5vcyB1biBwdW50byBkZSBjYW1iaW8gZGUgZsOzcm11bGEgZG9uZGUgbG9zIGxhdGVyYWxlcyBubyBjb2luY2lkZW4uIn19LCAiZTIiOiB7InR5cGUiOiAic2VsZWN0cyIsICJmYm9rIjogIkJpZW4uIEVuIDxzcGFuIGNsYXNzPVwibWlcIj48aT54PC9pPjx3YnI+PHNwYW4gY2xhc3M9XCJvc1wiPj08L3NwYW4+MDwvc3Bhbj4gbG9zIGxhdGVyYWxlcyB2YWxlbiA8c3BhbiBjbGFzcz1cIm1pXCI+MTwvc3Bhbj4geSA8c3BhbiBjbGFzcz1cIm1pXCI+MDwvc3Bhbj46IGVsIGzDrW1pdGUgbm8gZXhpc3RlIHkgbmluZ8O6biB2YWxvciBkZSA8c3BhbiBjbGFzcz1cIm1pXCI+PGk+ZjwvaT4oMCk8L3NwYW4+IGxvIGFycmVnbGEuIEVzIHVuIHNhbHRvIGZpbml0by4iLCAib2siOiBbImMiLCAibmUiLCAiYyJdfSwgImUzYSI6IHsidHlwZSI6ICJudW1zIiwgImZib2siOiAiQmllbjogZWwgbMOtbWl0ZSB2YWxlIDxzcGFuIGNsYXNzPVwibWlcIj48c3BhbiBjbGFzcz1cImZyXCI+PHNwYW4gY2xhc3M9XCJmblwiPjE8L3NwYW4+PHNwYW4gY2xhc3M9XCJmZFwiPjI8L3NwYW4+PC9zcGFuPjwvc3Bhbj4uIFVuYSBzb2xhIGFwbGljYWNpw7NuIGRlIGxhIHJlZ2xhIGFsY2FuesOzLCBwb3JxdWUgZGVzcHXDqXMgZGUgZGVyaXZhciBlbCBkZW5vbWluYWRvciB5YSBubyBzZSBhbnVsYS4iLCAib2siOiBbWzAuNV1dfSwgImUzYiI6IHsidHlwZSI6ICJudW1zIiwgImZib2siOiAiQmllbjogZWwgbMOtbWl0ZSB2YWxlIDEuIiwgIm9rIjogW1sxXV19LCAiZTNjIjogeyJ0eXBlIjogIm51bXMiLCAiZmJvayI6ICJCaWVuOiBlbCBsw61taXRlIHZhbGUgPHNwYW4gY2xhc3M9XCJtaVwiPjA8L3NwYW4+LiBMYSBjbGF2ZSBlcmEgcGFzYXIgZGUgbGEgZm9ybWEgPHNwYW4gY2xhc3M9XCJtaVwiPjA8d2JyPjxzcGFuIGNsYXNzPVwib2JcIj7Ctzwvc3Bhbj7iiJ48L3NwYW4+IGEgdW4gY29jaWVudGUuIiwgIm9rIjogW1swXV19LCAiZTVhIjogeyJ0eXBlIjogIm51bXMiLCAiZmJvayI6ICJCaWVuOiBsYSByZWN0YSB0YW5nZW50ZSBlcyA8c3BhbiBjbGFzcz1cIm1pXCI+PGk+eTwvaT48d2JyPjxzcGFuIGNsYXNzPVwib3NcIj49PC9zcGFuPjQ8aT54PC9pPjx3YnI+PHNwYW4gY2xhc3M9XCJvYlwiPuKIkjwvc3Bhbj4zPC9zcGFuPi4iLCAib2siOiBbWzRdLCBbLTNdXX0sICJlNWIiOiB7InR5cGUiOiAibnVtcyIsICJmYm9rIjogIkJpZW46IGxhIHJlY3RhIHRhbmdlbnRlIGVzIDxzcGFuIGNsYXNzPVwibWlcIj48aT55PC9pPjx3YnI+PHNwYW4gY2xhc3M9XCJvc1wiPj08L3NwYW4+PHNwYW4gY2xhc3M9XCJvdVwiPuKIkjwvc3Bhbj43PGk+eDwvaT48d2JyPjxzcGFuIGNsYXNzPVwib2JcIj7iiJI8L3NwYW4+NTwvc3Bhbj4uIiwgIm9rIjogW1stN10sIFstNV1dfSwgImU0QSI6IHsidHlwZSI6ICJtdWx0aSIsICJmYm9rIjogIkJpZW46IGFzw61udG90YXMgdmVydGljYWxlcyA8c3BhbiBjbGFzcz1cIm1pXCI+PGk+eDwvaT48d2JyPjxzcGFuIGNsYXNzPVwib3NcIj49PC9zcGFuPjxzcGFuIGNsYXNzPVwib3VcIj7iiJI8L3NwYW4+MTwvc3Bhbj4geSA8c3BhbiBjbGFzcz1cIm1pXCI+PGk+eDwvaT48d2JyPjxzcGFuIGNsYXNzPVwib3NcIj49PC9zcGFuPjE8L3NwYW4+LCB5IGFzw61udG90YSBob3Jpem9udGFsIDxzcGFuIGNsYXNzPVwibWlcIj48aT55PC9pPjx3YnI+PHNwYW4gY2xhc3M9XCJvc1wiPj08L3NwYW4+MTwvc3Bhbj4gaGFjaWEgbG9zIGRvcyBsYWRvcy4iLCAib2siOiBbIm0xIiwgInAxIl0sICJmYiI6IHsieiI6ICJFbiA8c3BhbiBjbGFzcz1cIm1pXCI+PGk+eDwvaT48d2JyPjxzcGFuIGNsYXNzPVwib3NcIj49PC9zcGFuPjA8L3NwYW4+IGVsIGRlbm9taW5hZG9yIHZhbGUgPHNwYW4gY2xhc3M9XCJtaVwiPjxzcGFuIGNsYXNzPVwib3VcIj7iiJI8L3NwYW4+MTwvc3Bhbj46IGxhIGZ1bmNpw7NuIGVzdMOhIGRlZmluaWRhIGFow60uIn0sICJleHRyYSI6IFsxXX0sICJlNEIiOiB7InR5cGUiOiAibnVtcyIsICJmYm9rIjogIkJpZW46IG3DoXhpbW8gcmVsYXRpdm8gZW4gPHNwYW4gY2xhc3M9XCJtaVwiPigwPHNwYW4gY2xhc3M9XCJwc2NcIj47PC9zcGFuPjxzcGFuIGNsYXNzPVwib3VcIj7iiJI8L3NwYW4+MSk8L3NwYW4+LiBMYSBmdW5jacOzbiBjcmVjZSBlbiA8c3BhbiBjbGFzcz1cIm1pXCI+KDxzcGFuIGNsYXNzPVwib3VcIj7iiJI8L3NwYW4+4oiePHNwYW4gY2xhc3M9XCJwc2NcIj47PC9zcGFuPjxzcGFuIGNsYXNzPVwib3VcIj7iiJI8L3NwYW4+MSk8L3NwYW4+IHkgZW4gPHNwYW4gY2xhc3M9XCJtaVwiPig8c3BhbiBjbGFzcz1cIm91XCI+4oiSPC9zcGFuPjE8c3BhbiBjbGFzcz1cInBzY1wiPjs8L3NwYW4+MCk8L3NwYW4+LCB5IGRlY3JlY2UgZW4gPHNwYW4gY2xhc3M9XCJtaVwiPigwPHNwYW4gY2xhc3M9XCJwc2NcIj47PC9zcGFuPjEpPC9zcGFuPiB5IGVuIDxzcGFuIGNsYXNzPVwibWlcIj4oMTxzcGFuIGNsYXNzPVwicHNjXCI+Ozwvc3Bhbj48c3BhbiBjbGFzcz1cIm91XCI+Kzwvc3Bhbj7iiJ4pPC9zcGFuPi4iLCAib2siOiBbWzBdLCBbLTFdXSwgInRpcG8iOiAibWF4In0sICJlNEMiOiB7InR5cGUiOiAiY2hvaWNlIiwgImZib2siOiAiQmllbjogbm8gdGllbmUgcHVudG8gZGUgaW5mbGV4acOzbi4gRXMgY8OzbmNhdmEgaGFjaWEgYXJyaWJhIGVuIDxzcGFuIGNsYXNzPVwibWlcIj4oPHNwYW4gY2xhc3M9XCJvdVwiPuKIkjwvc3Bhbj7iiJ48c3BhbiBjbGFzcz1cInBzY1wiPjs8L3NwYW4+PHNwYW4gY2xhc3M9XCJvdVwiPuKIkjwvc3Bhbj4xKTwvc3Bhbj4geSBlbiA8c3BhbiBjbGFzcz1cIm1pXCI+KDE8c3BhbiBjbGFzcz1cInBzY1wiPjs8L3NwYW4+PHNwYW4gY2xhc3M9XCJvdVwiPis8L3NwYW4+4oieKTwvc3Bhbj4sIHkgY8OzbmNhdmEgaGFjaWEgYWJham8gZW4gPHNwYW4gY2xhc3M9XCJtaVwiPig8c3BhbiBjbGFzcz1cIm91XCI+4oiSPC9zcGFuPjE8c3BhbiBjbGFzcz1cInBzY1wiPjs8L3NwYW4+MSk8L3NwYW4+LiIsICJvayI6ICJjIiwgImZiIjogeyJhIjogIlJldmlzZW4gZWwgc2lnbm8gZGUgPHNwYW4gY2xhc3M9XCJtaVwiPjxpPmc8L2k+4oCzPC9zcGFuPiBhIGxvcyBkb3MgbGFkb3MgZGUgPHNwYW4gY2xhc3M9XCJtaVwiPjA8L3NwYW4+OiBubyBjYW1iaWEuIiwgImIiOiAiQWjDrSBsYSBjb25jYXZpZGFkIGNhbWJpYSwgcGVybyBlc29zIHZhbG9yZXMgbm8gcGVydGVuZWNlbiBhbCBkb21pbmlvOiBubyBwdWVkZSBoYWJlciB1biBwdW50byBkZSBsYSBncsOhZmljYS4ifX0sICJlNGIiOiB7InR5cGUiOiAiY2hvaWNlIiwgImZib2siOiAiQmllbi4gRW4gPHNwYW4gY2xhc3M9XCJtaVwiPjxpPng8L2k+PHdicj48c3BhbiBjbGFzcz1cIm9zXCI+PTwvc3Bhbj4yPC9zcGFuPiBsYSBkZXJpdmFkYSBubyBleGlzdGUsIGFzw60gcXVlIGVzIHB1bnRvIGNyw610aWNvOyBwZXJvIG5vIGhheSB1biBlbnRvcm5vIGRlIDxzcGFuIGNsYXNzPVwibWlcIj4yPC9zcGFuPiBjb250ZW5pZG8gZW4gZWwgZG9taW5pbywgeSBwb3IgZXNvIG5vIHNlIGNsYXNpZmljYSBjb21vIGV4dHJlbW8gcmVsYXRpdm8uIExvIG1pc21vIHBhc2EgZW4gPHNwYW4gY2xhc3M9XCJtaVwiPjxpPng8L2k+PHdicj48c3BhbiBjbGFzcz1cIm9zXCI+PTwvc3Bhbj48c3BhbiBjbGFzcz1cIm91XCI+4oiSPC9zcGFuPjI8L3NwYW4+LiBMb3MgZXh0cmVtb3MgcmVsYXRpdm9zIGVzdMOhbiBlbiA8c3BhbiBjbGFzcz1cIm1pXCI+PGk+eDwvaT48d2JyPjxzcGFuIGNsYXNzPVwib3NcIj49PC9zcGFuPjxzcGFuIGNsYXNzPVwib3VcIj7iiJI8L3NwYW4+PHNwYW4gY2xhc3M9XCJzcVwiPjxzdmcgdmlld0JveD1cIjAgMCAxMCAyNFwiIHByZXNlcnZlQXNwZWN0UmF0aW89XCJub25lXCIgYXJpYS1oaWRkZW49XCJ0cnVlXCI+PHBhdGggZD1cIk0wLjYgMTQuNSBMMi44IDE0LjUgTDUuMiAyMi40IEw5LjQgMS4yXCIgZmlsbD1cIm5vbmVcIiBzdHJva2U9XCJjdXJyZW50Q29sb3JcIiBzdHJva2Utd2lkdGg9XCIxLjI1XCIgc3Ryb2tlLWxpbmVjYXA9XCJyb3VuZFwiIHN0cm9rZS1saW5lam9pbj1cInJvdW5kXCIgdmVjdG9yLWVmZmVjdD1cIm5vbi1zY2FsaW5nLXN0cm9rZVwiLz48L3N2Zz48c3BhbiBjbGFzcz1cInNxLWJcIj4yPC9zcGFuPjwvc3Bhbj48L3NwYW4+IHkgPHNwYW4gY2xhc3M9XCJtaVwiPjxpPng8L2k+PHdicj48c3BhbiBjbGFzcz1cIm9zXCI+PTwvc3Bhbj48c3BhbiBjbGFzcz1cInNxXCI+PHN2ZyB2aWV3Qm94PVwiMCAwIDEwIDI0XCIgcHJlc2VydmVBc3BlY3RSYXRpbz1cIm5vbmVcIiBhcmlhLWhpZGRlbj1cInRydWVcIj48cGF0aCBkPVwiTTAuNiAxNC41IEwyLjggMTQuNSBMNS4yIDIyLjQgTDkuNCAxLjJcIiBmaWxsPVwibm9uZVwiIHN0cm9rZT1cImN1cnJlbnRDb2xvclwiIHN0cm9rZS13aWR0aD1cIjEuMjVcIiBzdHJva2UtbGluZWNhcD1cInJvdW5kXCIgc3Ryb2tlLWxpbmVqb2luPVwicm91bmRcIiB2ZWN0b3ItZWZmZWN0PVwibm9uLXNjYWxpbmctc3Ryb2tlXCIvPjwvc3ZnPjxzcGFuIGNsYXNzPVwic3EtYlwiPjI8L3NwYW4+PC9zcGFuPjwvc3Bhbj4uIiwgIm9rIjogImIiLCAiZmIiOiB7ImEiOiAiTWlyZW4gYSBsYSBkZXJlY2hhIGRlIDxzcGFuIGNsYXNzPVwibWlcIj48aT54PC9pPjx3YnI+PHNwYW4gY2xhc3M9XCJvc1wiPj08L3NwYW4+Mjwvc3Bhbj46IMK/bGEgZnVuY2nDs24gZXN0w6EgZGVmaW5pZGE/IFBhcmEgaGFibGFyIGRlIGV4dHJlbW8gcmVsYXRpdm8gaGFjZSBmYWx0YSB1biBlbnRvcm5vIGRlIGxvcyBkb3MgbGFkb3MuIiwgImMiOiAiUmV2aXNlbiBzaSA8c3BhbiBjbGFzcz1cIm1pXCI+PHNwYW4gY2xhc3M9XCJhdFwiPjxpPmg8L2k+4oCyPC9zcGFuPigyKTwvc3Bhbj4gZXhpc3RlOiBlbCBkZW5vbWluYWRvciBkZSBsYSBkZXJpdmFkYSBzZSBhbnVsYS4ifX0sICJlNmEiOiB7InR5cGUiOiAiY2hvaWNlIiwgImZib2siOiAiQmllbi4gQW50ZXMgZGUgcGFzYXIgYSBsYSBzaWd1aWVudGUsIGRlcml2ZW4gZWwgcmVzdWx0YWRvOiB0aWVuZW4gcXVlIHZvbHZlciBhbCBpbnRlZ3JhbmRvLiIsICJvayI6ICJvMCIsICJmYiI6IHsibzEiOiAiUmV2aXNlbiBlbCBzaWdubzogwr9jdcOhbnRvIHZhbGUgPHNwYW4gY2xhc3M9XCJtaVwiPjxzcGFuIGNsYXNzPVwiaW50XCI+4oirPC9zcGFuPiA8c3BhbiBjbGFzcz1cInJvXCI+c2VuPC9zcGFuPig8aT54PC9pPikgPHNwYW4gY2xhc3M9XCJyb1wiPmQ8L3NwYW4+PGk+eDwvaT48L3NwYW4+PyBDb21iw61uZW5sbyBjb24gZWwgbWVub3MgZGUgbGEgZsOzcm11bGEuIiwgIm8yIjogIkxhIGludGVncmFsIGRlIHVuIHByb2R1Y3RvIG5vIGVzIGVsIHByb2R1Y3RvIGRlIGxhcyBpbnRlZ3JhbGVzLiIsICJvMyI6ICLCv0N1w6FudG8gdmFsZSA8c3BhbiBjbGFzcz1cIm1pXCI+PGk+djwvaT48d2JyPjxzcGFuIGNsYXNzPVwib3NcIj49PC9zcGFuPjxzcGFuIGNsYXNzPVwiaW50XCI+4oirPC9zcGFuPiA8c3BhbiBjbGFzcz1cInJvXCI+Y29zPC9zcGFuPig8aT54PC9pPikgPHNwYW4gY2xhc3M9XCJyb1wiPmQ8L3NwYW4+PGk+eDwvaT48L3NwYW4+PyJ9fSwgImU2YiI6IHsidHlwZSI6ICJjaG9pY2UiLCAiZmJvayI6ICJCaWVuLiBBbnRlcyBkZSBwYXNhciBhIGxhIHNpZ3VpZW50ZSwgZGVyaXZlbiBlbCByZXN1bHRhZG86IHRpZW5lbiBxdWUgdm9sdmVyIGFsIGludGVncmFuZG8uIiwgIm9rIjogIm8wIiwgImZiIjogeyJvMiI6ICJGYWx0YSBpbnRlZ3JhciBiaWVuIGxhIHBvdGVuY2lhOiDCv2N1w6FudG8gdmFsZSA8c3BhbiBjbGFzcz1cIm1pXCI+PHNwYW4gY2xhc3M9XCJpbnRcIj7iiKs8L3NwYW4+IDxzcGFuIGNsYXNzPVwiYXRcIj48aT50PC9pPjxzdXA+PHNwYW4gY2xhc3M9XCJvdVwiPuKIkjwvc3Bhbj48c3BhbiBjbGFzcz1cImZyXCI+PHNwYW4gY2xhc3M9XCJmblwiPjE8L3NwYW4+PHNwYW4gY2xhc3M9XCJmZFwiPjI8L3NwYW4+PC9zcGFuPjwvc3VwPjwvc3Bhbj4gPHNwYW4gY2xhc3M9XCJyb1wiPmQ8L3NwYW4+PGk+dDwvaT48L3NwYW4+PyIsICJvMSI6ICJSZXZpc2VuIGVsIHNpZ25vIGRlIDxzcGFuIGNsYXNzPVwibWlcIj48c3BhbiBjbGFzcz1cInJvXCI+ZDwvc3Bhbj48aT50PC9pPjwvc3Bhbj46IGxhIGRlcml2YWRhIGRlIDxzcGFuIGNsYXNzPVwibWlcIj4xPHdicj48c3BhbiBjbGFzcz1cIm9iXCI+4oiSPC9zcGFuPjxzcGFuIGNsYXNzPVwiYXRcIj48aT54PC9pPjxzdXA+Njwvc3VwPjwvc3Bhbj48L3NwYW4+IGVzIG5lZ2F0aXZhLiIsICJvMyI6ICJGYWx0YSBsYSBjb25zdGFudGUgcXVlIHNhbGUgZGUgZGVzcGVqYXIgPHNwYW4gY2xhc3M9XCJtaVwiPjxzcGFuIGNsYXNzPVwiYXRcIj48aT54PC9pPjxzdXA+NTwvc3VwPjwvc3Bhbj4gPHNwYW4gY2xhc3M9XCJyb1wiPmQ8L3NwYW4+PGk+eDwvaT48L3NwYW4+LiJ9fSwgImU2YyI6IHsidHlwZSI6ICJjaG9pY2UiLCAiZmJvayI6ICJCaWVuLiBBbnRlcyBkZSBwYXNhciBhIGxhIHNpZ3VpZW50ZSwgZGVyaXZlbiBlbCByZXN1bHRhZG86IHRpZW5lbiBxdWUgdm9sdmVyIGFsIGludGVncmFuZG8uIiwgIm9rIjogIm8wIiwgImZiIjogeyJvMyI6ICJMYSBpbnRlZ3JhbCBkZSB1biBwcm9kdWN0byBubyBlcyBlbCBwcm9kdWN0byBkZSBsYXMgaW50ZWdyYWxlcy4iLCAibzEiOiAiUmV2aXNlbiBlbCBzaWdubyBkZWwgw7psdGltbyB0w6lybWlubzogaGF5IGRvcyBtZW5vcyBxdWUgc2UgY29tYmluYW4uIiwgIm8yIjogIsK/Q3XDoW50byB2YWxlIDxzcGFuIGNsYXNzPVwibWlcIj48aT52PC9pPjx3YnI+PHNwYW4gY2xhc3M9XCJvc1wiPj08L3NwYW4+PHNwYW4gY2xhc3M9XCJpbnRcIj7iiKs8L3NwYW4+IDxzcGFuIGNsYXNzPVwicm9cIj5zZW48L3NwYW4+KDxpPng8L2k+KSA8c3BhbiBjbGFzcz1cInJvXCI+ZDwvc3Bhbj48aT54PC9pPjwvc3Bhbj4/In19LCAiZTZkIjogeyJ0eXBlIjogImNob2ljZSIsICJmYm9rIjogIkJpZW4uIEFudGVzIGRlIHBhc2FyIGEgbGEgc2lndWllbnRlLCBkZXJpdmVuIGVsIHJlc3VsdGFkbzogdGllbmVuIHF1ZSB2b2x2ZXIgYWwgaW50ZWdyYW5kby4iLCAib2siOiAibzAiLCAiZmIiOiB7Im8zIjogIlJldmlzZW4gbGEgaW50ZWdyYWwgZGUgbGEgcG90ZW5jaWE6IDxzcGFuIGNsYXNzPVwibWlcIj48c3BhbiBjbGFzcz1cImludFwiPuKIqzwvc3Bhbj4gPHNwYW4gY2xhc3M9XCJhdFwiPjxpPnQ8L2k+PHN1cD48c3BhbiBjbGFzcz1cImZyXCI+PHNwYW4gY2xhc3M9XCJmblwiPjE8L3NwYW4+PHNwYW4gY2xhc3M9XCJmZFwiPjI8L3NwYW4+PC9zcGFuPjwvc3VwPjwvc3Bhbj4gPHNwYW4gY2xhc3M9XCJyb1wiPmQ8L3NwYW4+PGk+dDwvaT48L3NwYW4+LiIsICJvMiI6ICJSZXZpc2VuIGxhIGludGVncmFsIGRlIGxhIHBvdGVuY2lhOiA8c3BhbiBjbGFzcz1cIm1pXCI+PHNwYW4gY2xhc3M9XCJpbnRcIj7iiKs8L3NwYW4+IDxzcGFuIGNsYXNzPVwiYXRcIj48aT50PC9pPjxzdXA+PHNwYW4gY2xhc3M9XCJmclwiPjxzcGFuIGNsYXNzPVwiZm5cIj4xPC9zcGFuPjxzcGFuIGNsYXNzPVwiZmRcIj4yPC9zcGFuPjwvc3Bhbj48L3N1cD48L3NwYW4+IDxzcGFuIGNsYXNzPVwicm9cIj5kPC9zcGFuPjxpPnQ8L2k+PC9zcGFuPi4iLCAibzEiOiAiRmFsdGEgZGl2aWRpciBwb3IgPHNwYW4gY2xhc3M9XCJtaVwiPjI8L3NwYW4+IGFsIGRlc3BlamFyIDxzcGFuIGNsYXNzPVwibWlcIj48aT54PC9pPiA8c3BhbiBjbGFzcz1cInJvXCI+ZDwvc3Bhbj48aT54PC9pPjwvc3Bhbj4uIn19LCAiZTZlIjogeyJ0eXBlIjogImNob2ljZSIsICJmYm9rIjogIkJpZW4uIEFudGVzIGRlIHBhc2FyIGEgbGEgc2lndWllbnRlLCBkZXJpdmVuIGVsIHJlc3VsdGFkbzogdGllbmVuIHF1ZSB2b2x2ZXIgYWwgaW50ZWdyYW5kby4iLCAib2siOiAibzAiLCAiZmIiOiB7Im8xIjogIlJldmlzZW4gbGEgaW50ZWdyYWwgZGUgbGEgcG90ZW5jaWE6IDxzcGFuIGNsYXNzPVwibWlcIj48c3BhbiBjbGFzcz1cImludFwiPuKIqzwvc3Bhbj4gPHNwYW4gY2xhc3M9XCJhdFwiPjxpPnQ8L2k+PHN1cD48c3BhbiBjbGFzcz1cIm91XCI+4oiSPC9zcGFuPjxzcGFuIGNsYXNzPVwiZnJcIj48c3BhbiBjbGFzcz1cImZuXCI+MTwvc3Bhbj48c3BhbiBjbGFzcz1cImZkXCI+Mjwvc3Bhbj48L3NwYW4+PC9zdXA+PC9zcGFuPiA8c3BhbiBjbGFzcz1cInJvXCI+ZDwvc3Bhbj48aT50PC9pPjwvc3Bhbj4uIiwgIm8zIjogIlJldmlzZW4gZWwgZXhwb25lbnRlOiBsYSByYcOteiBlc3TDoSBlbiBlbCBkZW5vbWluYWRvciwgYXPDrSBxdWUgc2UgaW50ZWdyYSA8c3BhbiBjbGFzcz1cIm1pXCI+PHNwYW4gY2xhc3M9XCJhdFwiPjxpPnQ8L2k+PHN1cD48c3BhbiBjbGFzcz1cIm91XCI+4oiSPC9zcGFuPjxzcGFuIGNsYXNzPVwiZnJcIj48c3BhbiBjbGFzcz1cImZuXCI+MTwvc3Bhbj48c3BhbiBjbGFzcz1cImZkXCI+Mjwvc3Bhbj48L3NwYW4+PC9zdXA+PC9zcGFuPjwvc3Bhbj4uIiwgIm8yIjogIkZhbHRhIGxhIGNvbnN0YW50ZSBxdWUgc2FsZSBkZSBkZXNwZWphciA8c3BhbiBjbGFzcz1cIm1pXCI+PHNwYW4gY2xhc3M9XCJhdFwiPjxpPng8L2k+PHN1cD4yPC9zdXA+PC9zcGFuPiA8c3BhbiBjbGFzcz1cInJvXCI+ZDwvc3Bhbj48aT54PC9pPjwvc3Bhbj4uIn19LCAiZTZmIjogeyJ0eXBlIjogImNob2ljZSIsICJmYm9rIjogIkJpZW4uIEFudGVzIGRlIHBhc2FyIGEgbGEgc2lndWllbnRlLCBkZXJpdmVuIGVsIHJlc3VsdGFkbzogdGllbmVuIHF1ZSB2b2x2ZXIgYWwgaW50ZWdyYW5kby4iLCAib2siOiAibzAiLCAiZmIiOiB7Im8yIjogIkxhIGludGVncmFsIGRlIHVuIHByb2R1Y3RvIG5vIGVzIGVsIHByb2R1Y3RvIGRlIGxhcyBpbnRlZ3JhbGVzLiIsICJvMyI6ICLCv0N1w6FudG8gdmFsZSA8c3BhbiBjbGFzcz1cIm1pXCI+PHNwYW4gY2xhc3M9XCJpbnRcIj7iiKs8L3NwYW4+IDxzcGFuIGNsYXNzPVwiYXRcIj48c3BhbiBjbGFzcz1cInJvXCI+ZTwvc3Bhbj48c3VwPjxpPng8L2k+PC9zdXA+PC9zcGFuPiA8c3BhbiBjbGFzcz1cInJvXCI+ZDwvc3Bhbj48aT54PC9pPjwvc3Bhbj4/IiwgIm8xIjogIlJldmlzZW4gZWwgc2lnbm8gZGUgbGEgZsOzcm11bGEgZGUgcGFydGVzLiJ9fSwgImU2ZyI6IHsidHlwZSI6ICJjaG9pY2UiLCAiZmJvayI6ICJCaWVuLiBBbnRlcyBkZSBwYXNhciBhIGxhIHNpZ3VpZW50ZSwgZGVyaXZlbiBlbCByZXN1bHRhZG86IHRpZW5lbiBxdWUgdm9sdmVyIGFsIGludGVncmFuZG8uIiwgIm9rIjogIm8wIiwgImZiIjogeyJvMiI6ICJSZXZpc2VuIGxhIGNvbnN0YW50ZTogZWwgPHNwYW4gY2xhc3M9XCJtaVwiPjQ8L3NwYW4+IGRlbCBpbnRlZ3JhbmRvIHRhbWJpw6luIGN1ZW50YS4iLCAibzEiOiAiRmFsdGEgZGl2aWRpciBwb3IgPHNwYW4gY2xhc3M9XCJtaVwiPjI8L3NwYW4+IGFsIGRlc3BlamFyIDxzcGFuIGNsYXNzPVwibWlcIj48aT54PC9pPiA8c3BhbiBjbGFzcz1cInJvXCI+ZDwvc3Bhbj48aT54PC9pPjwvc3Bhbj4uIiwgIm8zIjogIlJldmlzZW4gbGEgaW50ZWdyYWwgZGUgbGEgcG90ZW5jaWE6IDxzcGFuIGNsYXNzPVwibWlcIj48c3BhbiBjbGFzcz1cImludFwiPuKIqzwvc3Bhbj4gPHNwYW4gY2xhc3M9XCJhdFwiPjxpPnQ8L2k+PHN1cD48c3BhbiBjbGFzcz1cImZyXCI+PHNwYW4gY2xhc3M9XCJmblwiPjE8L3NwYW4+PHNwYW4gY2xhc3M9XCJmZFwiPjI8L3NwYW4+PC9zcGFuPjwvc3VwPjwvc3Bhbj4gPHNwYW4gY2xhc3M9XCJyb1wiPmQ8L3NwYW4+PGk+dDwvaT48L3NwYW4+LiJ9fSwgImU2aCI6IHsidHlwZSI6ICJjaG9pY2UiLCAiZmJvayI6ICJCaWVuLiBBbnRlcyBkZSBwYXNhciBhIGxhIHNpZ3VpZW50ZSwgZGVyaXZlbiBlbCByZXN1bHRhZG86IHRpZW5lbiBxdWUgdm9sdmVyIGFsIGludGVncmFuZG8uIiwgIm9rIjogIm8wIiwgImZiIjogeyJvMyI6ICJFc2EgZXMgbGEgcHJpbWl0aXZhIGRlIDxzcGFuIGNsYXNzPVwibWlcIj48c3BhbiBjbGFzcz1cInJvXCI+bG48L3NwYW4+KDxpPng8L2k+KTwvc3Bhbj4sIG5vIGRlIDxzcGFuIGNsYXNzPVwibWlcIj48aT54PC9pPjx3YnI+PHNwYW4gY2xhc3M9XCJvYlwiPsK3PC9zcGFuPjxzcGFuIGNsYXNzPVwicm9cIj5sbjwvc3Bhbj4oPGk+eDwvaT4pPC9zcGFuPi4iLCAibzEiOiAiUmV2aXNlbiBsYSDDumx0aW1hIGludGVncmFsOiA8c3BhbiBjbGFzcz1cIm1pXCI+PHNwYW4gY2xhc3M9XCJpbnRcIj7iiKs8L3NwYW4+IDxzcGFuIGNsYXNzPVwiZnJcIj48c3BhbiBjbGFzcz1cImZuXCI+PGk+eDwvaT48L3NwYW4+PHNwYW4gY2xhc3M9XCJmZFwiPjI8L3NwYW4+PC9zcGFuPiA8c3BhbiBjbGFzcz1cInJvXCI+ZDwvc3Bhbj48aT54PC9pPjwvc3Bhbj4uIiwgIm8yIjogIlJldmlzZW4gZWwgc2lnbm8gZGUgbGEgZsOzcm11bGEgZGUgcGFydGVzLiJ9fSwgImVyciI6IHsidHlwZSI6ICJsaW5lcyIsICJmYm9rIjogIkFow60gZXN0w6EuIExhIHByaW1pdGl2YSBkZSA8c3BhbiBjbGFzcz1cIm1pXCI+PHNwYW4gY2xhc3M9XCJhdFwiPjxzcGFuIGNsYXNzPVwicm9cIj5lPC9zcGFuPjxzdXA+PHNwYW4gY2xhc3M9XCJvdVwiPuKIkjwvc3Bhbj48aT54PC9pPjwvc3VwPjwvc3Bhbj48L3NwYW4+IGVzIDxzcGFuIGNsYXNzPVwibWlcIj48c3BhbiBjbGFzcz1cIm91XCI+4oiSPC9zcGFuPjxzcGFuIGNsYXNzPVwiYXRcIj48c3BhbiBjbGFzcz1cInJvXCI+ZTwvc3Bhbj48c3VwPjxzcGFuIGNsYXNzPVwib3VcIj7iiJI8L3NwYW4+PGk+eDwvaT48L3N1cD48L3NwYW4+PC9zcGFuPiwgcG9ycXVlIDxzcGFuIGNsYXNzPVwibWlcIj4oPHNwYW4gY2xhc3M9XCJvdVwiPuKIkjwvc3Bhbj48c3BhbiBjbGFzcz1cImF0XCI+PHNwYW4gY2xhc3M9XCJyb1wiPmU8L3NwYW4+PHN1cD48c3BhbiBjbGFzcz1cIm91XCI+4oiSPC9zcGFuPjxpPng8L2k+PC9zdXA+PC9zcGFuPjxzcGFuIGNsYXNzPVwiYXRcIj4p4oCyPC9zcGFuPjx3YnI+PHNwYW4gY2xhc3M9XCJvc1wiPj08L3NwYW4+PHNwYW4gY2xhc3M9XCJvdVwiPuKIkjwvc3Bhbj48c3BhbiBjbGFzcz1cImF0XCI+PHNwYW4gY2xhc3M9XCJyb1wiPmU8L3NwYW4+PHN1cD48c3BhbiBjbGFzcz1cIm91XCI+4oiSPC9zcGFuPjxpPng8L2k+PC9zdXA+PC9zcGFuPjx3YnI+PHNwYW4gY2xhc3M9XCJvYlwiPsK3PC9zcGFuPig8c3BhbiBjbGFzcz1cIm91XCI+4oiSPC9zcGFuPjEpPHdicj48c3BhbiBjbGFzcz1cIm9zXCI+PTwvc3Bhbj48c3BhbiBjbGFzcz1cImF0XCI+PHNwYW4gY2xhc3M9XCJyb1wiPmU8L3NwYW4+PHN1cD48c3BhbiBjbGFzcz1cIm91XCI+4oiSPC9zcGFuPjxpPng8L2k+PC9zdXA+PC9zcGFuPjwvc3Bhbj4uIENvcnJpamFuIGRlc2RlIGVzZSByZW5nbMOzbiB5IHZlcmlmaXF1ZW4gZGVyaXZhbmRvLiIsICJvayI6ICJsMSIsICJmYiI6IHsibDAiOiAiRXNlIHJlbmdsw7NuIGVzdMOhIGJpZW46IGxhIGVsZWNjacOzbiBkZSA8c3BhbiBjbGFzcz1cIm1pXCI+PGk+dTwvaT48L3NwYW4+IHkgc3UgZGlmZXJlbmNpYWwgc29uIGNvcnJlY3Rhcy4iLCAibDIiOiAiRXNlIHJlbmdsw7NuIGFwbGljYSBiaWVuIGxhIGbDs3JtdWxhIGNvbiBsbyBxdWUgdmVuw61hIGRlIGFudGVzLiBFbCBlcnJvciBlc3TDoSBtw6FzIGFycmliYS4iLCAibDMiOiAiRXN0YSBjdWVudGEgZXMgY29oZXJlbnRlIGNvbiBlbCByZW5nbMOzbiBhbnRlcmlvci4gQnVzcXVlbiBtw6FzIGFycmliYS4iLCAibDQiOiAiRXN0ZSByZW5nbMOzbiBzw7NsbyBzaW1wbGlmaWNhIGxvcyBzaWdub3MuIEVsIGVycm9yIHZpZW5lIGRlIGFudGVzLiJ9fX0=</script>
+<script>
+(function(){
+  'use strict';
+  var raw = document.getElementById('ans').textContent.trim();
+  var bytes = Uint8Array.from(atob(raw), function(c){ return c.charCodeAt(0); });
+  var A = JSON.parse(new TextDecoder().decode(bytes));
+  var MAXT = {multi:3, nums:3, selects:3, choice:2, lines:2};
+  var tries = {};
+  var SHEET = 'https://script.google.com/macros/s/AKfycbxyK3N6wVkqfS_RUbgtiuPk1mPXb9SMLpjI9th_GGynnT0zJ8C64f7VzdyiYLvTi7GRlg/exec';
+
+  function $(sel, root){ return (root||document).querySelector(sel); }
+  function $$(sel, root){ return Array.prototype.slice.call((root||document).querySelectorAll(sel)); }
+
+  /* ---------- grupo y envío a la planilla ---------- */
+  var gsel = document.getElementById('grupo-sel');
+  try { var g0 = localStorage.getItem('pp2-grupo'); if (g0) gsel.value = g0; } catch(e){}
+  function grupo(){ return gsel.value; }
+  function send(id, res){
+    if (!SHEET || !grupo()) return;
+    var card = document.getElementById('ej-'+id);
+    var data = {
+      grupo: grupo(),
+      tanda: card.closest('.tanda').id,
+      ej: card.querySelector('.ej-tit').textContent.trim(),
+      res: res,
+      intentos: tries[id] || 0,
+      pistas: $$('[data-hint^="'+id+'-"]').filter(function(h){ return !h.hidden; }).length
+    };
+    try {
+      fetch(SHEET, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(data)})
+        .catch(function(){});
+    } catch(e){}
+  }
+  function needGroup(id){
+    if (SHEET && !grupo()){
+      setFb(id, 'stop', 'Antes de verificar, elijan arriba el número de grupo.');
+      gsel.scrollIntoView({block:'center', behavior:'smooth'});
+      gsel.focus();
+      return true;
+    }
+    return false;
+  }
+
+  /* ---------- pestañas ---------- */
+  function goTab(id){
+    $$('.tab').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-tab') === id); });
+    $$('.tanda').forEach(function(s){ s.classList.toggle('active', s.id === id); });
+    var nav = document.getElementById('tabs');
+    if (nav.getBoundingClientRect().top < 0) nav.scrollIntoView({block:'start', behavior:'instant'});
+  }
+
+  /* ---------- números ---------- */
+  function parseNum(s){
+    s = (s||'').trim().replace(/−/g,'-').replace(/\s+/g,'').replace(',', '.');
+    if (!s) return NaN;
+    var m = s.match(/^(-?\d+(?:\.\d+)?)\/(-?\d+(?:\.\d+)?)$/);
+    if (m) return parseFloat(m[1]) / parseFloat(m[2]);
+    if (!/^-?\d+(\.\d+)?$/.test(s)) return NaN;
+    return parseFloat(s);
+  }
+  function near(v, list){ return list.some(function(x){ return Math.abs(v - x) < 1e-6; }); }
+
+  /* ---------- verificación ---------- */
+  function setFb(id, cls, html){
+    var fb = $('[data-fb="'+id+'"]');
+    fb.className = 'fb ' + cls; fb.innerHTML = html;
+  }
+  function finish(id, ok){
+    var card = document.getElementById('ej-'+id);
+    $$('input, select', card.querySelector('.check-body')).forEach(function(el){ el.disabled = true; });
+    $('[data-check="'+id+'"]').disabled = true;
+    if (ok) card.classList.add('done');
+  }
+  function check(id){
+    if (needGroup(id)) return;
+    var a = A[id], card = document.getElementById('ej-'+id), ok = false, specific = '', empty = false;
+    if (a.type === 'multi'){
+      var sel = $$('input[name="'+id+'"]:checked', card).map(function(i){ return i.value; });
+      if (!sel.length) empty = true;
+      ok = sel.length === a.ok.length && a.ok.every(function(k){ return sel.indexOf(k) >= 0; });
+      sel.forEach(function(k){ if (a.ok.indexOf(k) < 0 && a.fb[k]) specific = a.fb[k]; });
+      if (!specific && !ok && sel.length && sel.length < a.ok.length) specific = 'Les falta marcar algún punto.';
+      if (a.extra){
+        var v = parseNum($('[data-num="'+id+'-x"]', card).value);
+        if (isNaN(v)) empty = true;
+        if (ok && !near(v, a.extra)) { ok = false; specific = 'Las asíntotas verticales están bien; revisen la horizontal.'; }
+      }
+    } else if (a.type === 'choice' || a.type === 'lines'){
+      var r = $('input[name="'+id+'"]:checked', card);
+      if (!r) empty = true; else { ok = r.value === a.ok; if (!ok) specific = a.fb[r.value] || ''; }
+    } else if (a.type === 'selects'){
+      var vals = a.ok.map(function(_, n){ return $('[data-sel="'+id+'-'+n+'"]', card).value; });
+      if (vals.some(function(v){ return !v; })) empty = true;
+      var bad = vals.filter(function(v, n){ return v !== a.ok[n]; }).length;
+      ok = bad === 0;
+      if (!ok && !empty) specific = bad === 1 ? 'Hay un punto mal clasificado.' : 'Hay ' + bad + ' puntos mal clasificados.';
+    } else if (a.type === 'nums'){
+      var bads = 0;
+      a.ok.forEach(function(list, n){
+        var v = parseNum($('[data-num="'+id+'-'+n+'"]', card).value);
+        if (isNaN(v)) empty = true; else if (!near(v, list)) bads++;
+      });
+      ok = !empty && bads === 0;
+      if (a.tipo){
+        var t = $('input[name="'+id+'-tipo"]:checked', card);
+        if (!t) empty = true; else if (t.value !== a.tipo) { ok = false; if (!bads) specific = 'Las coordenadas están bien; revisen qué tipo de extremo es.'; }
+      }
+      if (!ok && !empty && bads && a.ok.length > 1) specific = bads === 1 ? 'Uno de los valores no es correcto.' : 'Ninguno de los valores es correcto.';
+    }
+    if (empty){ setFb(id, 'stop', 'Completen la respuesta antes de verificar. Si un número es una fracción, escríbanla con la barra inclinada.'); return; }
+    if (ok){ setFb(id, 'ok', a.fbok); finish(id, true); $('[data-tries="'+id+'"]').textContent = ''; send(id, 'Correcto'); return; }
+    tries[id] = (tries[id]||0) + 1;
+    var left = (MAXT[a.type]||3) - tries[id];
+    if (left <= 0){
+      setFb(id, 'stop', (specific ? specific + '<br>' : '') + (SHEET && grupo() ? 'Se terminaron los intentos. El profe ya recibió el aviso; mientras tanto, sigan con el ejercicio siguiente.' : 'Se terminaron los intentos. Avisen al profe por el botón de ayuda de Zoom y sigan con el ejercicio siguiente mientras tanto.'));
+      send(id, 'Sin intentos');
+      finish(id, false);
+      $('[data-tries="'+id+'"]').textContent = '';
+      return;
+    }
+    setFb(id, 'no', (specific || 'Todavía no. Revisen el desarrollo o pidan una pista.'));
+    send(id, 'Incorrecto');
+    $('[data-tries="'+id+'"]').textContent = left === 1 ? 'Queda 1 intento' : 'Quedan ' + left + ' intentos';
+  }
+
+  /* ---------- cronómetros ---------- */
+  var T = {};
+  function fmt(s){ var m = Math.floor(s/60), r = s%60; return (m<10?'0':'')+m+':'+(r<10?'0':'')+r; }
+  function tinit(id){
+    if (!T[id]){ var box = $('[data-timer="'+id+'"]'); T[id] = {left: parseInt(box.getAttribute('data-min'),10)*60, h:null}; }
+    return T[id];
+  }
+  function tdraw(id){
+    var t = T[id], box = $('[data-timer="'+id+'"]');
+    $('[data-tv="'+id+'"]').textContent = t.left > 0 ? fmt(t.left) : '¡Tiempo!';
+    box.classList.toggle('alert', t.left <= 60);
+  }
+  function tgo(id, btn){
+    var t = tinit(id);
+    if (t.h){ clearInterval(t.h); t.h = null; btn.textContent = 'Seguir'; return; }
+    if (t.left <= 0) return;
+    btn.textContent = 'Pausar';
+    t.h = setInterval(function(){
+      t.left--; tdraw(id);
+      if (t.left <= 0){ clearInterval(t.h); t.h = null; btn.textContent = 'Iniciar'; }
+    }, 1000);
+  }
+  function treset(id){
+    var t = tinit(id), box = $('[data-timer="'+id+'"]');
+    if (t.h){ clearInterval(t.h); t.h = null; }
+    t.left = parseInt(box.getAttribute('data-min'),10)*60;
+    $('[data-tgo="'+id+'"]').textContent = 'Iniciar';
+    tdraw(id);
+  }
+
+  /* ---------- delegación ---------- */
+  document.addEventListener('click', function(e){
+    var b;
+    if ((b = e.target.closest('[data-tab]'))) { goTab(b.getAttribute('data-tab')); return; }
+    if ((b = e.target.closest('[data-more]'))) {
+      var id = b.getAttribute('data-more');
+      var next = $$('[data-hint^="'+id+'-"]').filter(function(h){ return h.hidden; })[0];
+      if (next){ next.hidden = false; send(id, 'Pidió pista'); }
+      var rest = $$('[data-hint^="'+id+'-"]').filter(function(h){ return h.hidden; }).length;
+      if (!rest){ b.disabled = true; b.textContent = 'No hay más pistas'; }
+      else b.textContent = 'Pedir otra pista';
+      return;
+    }
+    if ((b = e.target.closest('[data-check]'))) { check(b.getAttribute('data-check')); return; }
+    if ((b = e.target.closest('[data-tgo]'))) { tgo(b.getAttribute('data-tgo'), b); return; }
+    if ((b = e.target.closest('[data-treset]'))) { treset(b.getAttribute('data-treset')); return; }
+  });
+  document.addEventListener('change', function(e){
+    if (e.target === gsel){ try { localStorage.setItem('pp2-grupo', gsel.value); } catch(err){} return; }
+    var g = e.target.closest('[data-gate]');
+    if (g){
+      var body = $('[data-body="'+g.getAttribute('data-gate')+'"]');
+      body.classList.toggle('locked', !g.checked);
+    }
+  });
+  $$('.check-body').forEach(function(b){ b.classList.add('locked'); });
+})();
+</script>
+</body>
+</html>
