@@ -63,6 +63,7 @@ h3{font-family:var(--f-disp);font-weight:400;font-size:1.25rem;color:var(--navy)
 /* grupo */
 .grupo{background:var(--white);border:1px solid var(--g200);border-radius:var(--rl);box-shadow:var(--sh);padding:20px;margin:24px 0 18px}
 .grupo h3{margin-bottom:10px}
+.grupo-intro{font-size:14px;color:var(--g700);margin-bottom:12px}
 .roles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px}
 @media (min-width:640px){.roles{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .rol{background:var(--bg2);border:1px solid var(--g200);border-radius:var(--r);padding:10px 12px}
@@ -258,13 +259,8 @@ sup .fr .fn,sup .fr .fd{padding:0 .28em}
   <div class="wrap">
     <section class="grupo">
       <span class="badge">Trabajo en grupo</span>
-      <h3 style="margin-top:8px">Antes de arrancar, repártanse los roles</h3>
-      <div class="roles">
-        <div class="rol"><b>Escribe</b><span>Comparte pantalla y escribe el desarrollo que dicta el grupo.</span></div>
-        <div class="rol"><b>Verifica</b><span>Controla cada resultado: reemplaza, deriva, revisa signos.</span></div>
-        <div class="rol"><b>Tiempo</b><span>Maneja el cronómetro y avisa cuando quedan 5 minutos.</span></div>
-        <div class="rol"><b>Vocero</b><span>Cuenta lo que hizo el grupo en la sala principal.</span></div>
-      </div>
+      <h3 style="margin-top:8px">Antes de arrancar</h3>
+      <p class="grupo-intro">Trabajan en grupo: resuelvan en papel, consúltense y comparen los desarrollos antes de verificar.</p>
       <div class="grupo-id">
         <label for="alumno">Apellido y nombre</label>
         <input id="alumno" type="text" autocomplete="name" placeholder="Ej.: Pérez, Ana">
@@ -274,7 +270,7 @@ sup .fr .fn,sup .fr .fd{padding:0 .28em}
         <p class="grupo-aviso" id="grupo-aviso" hidden>Elegí el grupo al que pertenecés para poder verificar.</p>
       </div>
       <div class="grupo-foot">
-        <p>Si son tres, el que verifica también lleva el tiempo. El grupo discute y resuelve en papel, pero <strong>cada uno verifica en su propia página</strong>: el puntaje y el informe son individuales. Si se traban, pidan una pista (no descuenta). Cada ejercicio suma su puntaje completo si aciertan en el primer intento, el 60 % en el segundo y el 30 % en el tercero. Al final, en la pestaña <strong>Informe</strong>, suben fotos de lo que hicieron en papel y descargan el PDF para entregar.</p>
+        <p><strong>Cada uno verifica en su propia página</strong>: el puntaje y el informe son individuales. Si se traban, pidan una pista (no descuenta). Cada ejercicio suma su puntaje completo si aciertan en el primer intento, el 60 % en el segundo y el 30 % en el tercero. Al final, en la pestaña <strong>Informe</strong>, suben fotos de lo que hicieron en papel y descargan el PDF para entregar.</p>
       </div>
     </section>
   </div>
@@ -342,7 +338,7 @@ sup .fr .fn,sup .fr .fd{padding:0 .28em}
 </article>
   <div class="puesta">
     <h3>Al volver a la sala principal</h3>
-    <ul><li>El vocero del grupo que elija el docente explica E1: en qué punto es discontinua y cómo lo justificaron.</li><li>Otro grupo muestra el gráfico de E2. El resto compara con el suyo.</li></ul>
+    <ul><li>Un grupo que elija el docente explica E1: en qué punto es discontinua y cómo lo justificaron.</li><li>Otro grupo muestra el gráfico de E2. El resto compara con el suyo.</li></ul>
   </div>
 </section>
 <section class="tanda" id="t2" data-tanda="t2">
